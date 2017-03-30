@@ -2,6 +2,7 @@
 
 export(aggregate_by_date_span)
 export(btnox_adddata)
+export(btnox_adddata2)
 export(chooseday)
 export(flagdata)
 export(massPlot)
