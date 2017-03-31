@@ -13,10 +13,10 @@
 
 padtimeseries = function(d,start,end,period){
   #Format dates
-  s = ymd_hms(start)
-  e = ymd_hms(end)
+  #s = ymd_hms(start)
+  #e = ymd_hms(end)
   #create new time series
-  t = data.frame(seq(s,e,by = period))
+  t = data.frame(seq(start,end,by = period))
   names(t) = "date"
   #Merge Time Series
   t = merge(t,d,by = "date",all = T)
