@@ -16,7 +16,7 @@
 #' 
 #' @export
 
-exp_day_comparison = function(d,dtraj = traj,date = "24/04/2016",wbefore = 4,wafter = 4,dbefore,dafter, pol = "nox",period = "15 min", use_polcol = T){
+exp_day_comparison = function(d,dtraj,date = "24/04/2016",wbefore = 4,wafter = 4,dbefore,dafter, pol = "nox",period = "15 min", use_polcol = T){
   if (missing(dbefore))
     dbefore = wbefore
   if(missing(dafter))
@@ -141,7 +141,8 @@ exp_day_comparison = function(d,dtraj = traj,date = "24/04/2016",wbefore = 4,waf
   plot(tv$daysa$plot$hour)
   plot(tv$daysb$plot$day.hour)
   plot(tv$daysa$plot$day.hour)
-  trajPlot(selectByDate(dtraj, start = date,end = date))
+  if(!missing(dtraj))
+    trajPlot(selectByDate(dtraj, start = date,end = date))
   
   dev.off()
 }
