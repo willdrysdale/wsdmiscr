@@ -18,6 +18,7 @@ exp_unique_event_days(d, unique_day, day_before, day_after, pol, period)
 \item{pol}{pollutant to perform experiment on - only handles one pollutant at a time}
 }
 \value{
+dataframe ready for timeVariation
 }
 \description{
 Variation on Unique Event Experiment
