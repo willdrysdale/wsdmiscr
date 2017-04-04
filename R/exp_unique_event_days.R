@@ -1,34 +1,35 @@
-#' Unique Event Experiment
+#' Unique Event Experiment Days
 #' 
-#' Produces a diurnal of a given day, and provides a comparison to the same type of day for given weeks in the past and/or future
-#' e.g. Sunday 6th November 2016 is compared to an average of the preceeding 4 and following 4 sundays
+#' Variation on Unique Event Experiment
+#' Produces a diurnal of a given day, and provides a comparison to the same type of day for given days in the past and/or future
+#' e.g. Sunday 6th November 2016 is compared to an average of the preceeding 4 and following 4 days
 #' 
 #' @param d dataframe containing the time series to apply the experiment to
 #' @param unique_day the date of the unique event in the format "2016/11/06"
-#' @param weeks_before numerical number of weeks preeceeding to include average days from
-#' @param weeks_after numerical number of weeks following to include average days from
+#' @param day_before numerical number of days preeceeding to include average days from
+#' @param day_after numerical number of days following to include average days from
 #' @param pol pollutant to perform experiment on - only handles one pollutant at a time
 #' 
 #' @return Runs a time variation on the pollutant selected and returns a dataframe of the timeseries beofre being run
 #' 
 #' @export
 
-exp_unique_event = function(d,unique_day,weeks_before,weeks_after,pol,period){
+exp_unique_event_days = function(d,unique_day,day_before,day_after,pol,period){
   unique_day = ymd(unique_day)
   days_before = data.frame(NULL)
   days_after = data.frame(NULL)
   df_unique_day = selectByDate(d,start = unique_day, end = unique_day)
-  if (weeks_before > 0){
+  if (day_before > 0){
     
-    days_before = selectByDate(d,start = unique_day - weeks(1), end = unique_day - weeks(1))
-    for (i in 2:weeks_before){
-      days_before = rbind(days_before,selectByDate(d,start = unique_day - weeks(i), end = unique_day - weeks(i)))
+    days_before = selectByDate(d,start = unique_day - days(1), end = unique_day - days(1))
+    for (i in 2:day_before){
+      days_before = rbind(days_before,selectByDate(d,start = unique_day - days(i), end = unique_day - days(i)))
     }
   }
-  if (weeks_after > 0){
-    days_after = selectByDate(d,start = unique_day + weeks(1), end = unique_day + weeks(1))
-    for (i in 2:weeks_after){
-      days_after = rbind(days_after,selectByDate(d,start = unique_day + weeks(i), end = unique_day + weeks(i)))
+  if (day_after > 0){
+    days_after = selectByDate(d,start = unique_day + days(1), end = unique_day + days(1))
+    for (i in 2:day_after){
+      days_after = rbind(days_after,selectByDate(d,start = unique_day + days(i), end = unique_day + days(i)))
     }
   }
   average_days = rbind(days_before,days_after)
