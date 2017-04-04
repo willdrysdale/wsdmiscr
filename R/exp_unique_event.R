@@ -9,7 +9,7 @@
 #' @param weeks_after numerical number of weeks following to include average days from
 #' @param pol pollutant to perform experiment on - only handles one pollutant at a time
 #' 
-#' @return Runs a time variation on the pollutant selected and returns a dataframe of the timeseries beofre being run
+#' @return dataframe ready for timeVariation
 #' 
 #' @export
 

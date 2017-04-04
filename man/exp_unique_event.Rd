@@ -18,9 +18,9 @@ exp_unique_event(d, unique_day, weeks_before, weeks_after, pol, period)
 \item{pol}{pollutant to perform experiment on - only handles one pollutant at a time}
 }
 \value{
-Runs a time variation on the pollutant selected and returns a dataframe of the timeseries beofre being run
+dataframe ready for timeVariation
 }
 \description{
-Produces a diurnal of a give day, and provides a comparison to the same type of day for given weeks in the past and/or future
+Produces a diurnal of a given day, and provides a comparison to the same type of day for given weeks in the past and/or future
 e.g. Sunday 6th November 2016 is compared to an average of the preceeding 4 and following 4 sundays
 }
