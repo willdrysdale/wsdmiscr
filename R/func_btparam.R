@@ -25,7 +25,7 @@ bt_fastnox_param_monitor = function(d){
   pdf(file = filename,width = 10,height = 15)
   
   timePlot(d,pol = c("CH1_zero","CH2_zero","nom_sens_1","CH1_sens","nom_sens_2","CH2_sens","nom_ce"
-                     ,"NO2_ConEff","PMT_Temp","Rxn_Vessel_Pressure","blc_temp"),y.relation = "free")
+                     ,"NO2_ConEff","PMT_Temp","Control_Temp","Rxn_Vessel_Pressure","blc_temp"),y.relation = "free")
 
   dev.off()
 
