@@ -4,9 +4,8 @@
 \alias{exp_day_comparison}
 \title{Unique Day Comparions Full}
 \usage{
-exp_day_comparison(d, dtraj = traj, date = "24/04/2016", wbefore = 4,
-  wafter = 4, dbefore, dafter, pol = "nox", period = "15 min",
-  use_polcol = T)
+exp_day_comparison(d, dtraj, date = "24/04/2016", wbefore = 4, wafter = 4,
+  dbefore, dafter, pol = "nox", period = "15 min", use_polcol = T)
 }
 \arguments{
 \item{d}{Dataframe containing time series}
