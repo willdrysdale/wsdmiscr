@@ -9,8 +9,7 @@ devtools::install_github("willdrysdale/wsdmiscr")
 
 Included Functions:
 
-*aggregate_by_date_span*
-
+*aggregate_by_date_span*\n
 **Data Handling**
 Used for comparing GC runs,or other data with a start and end time, to a time series of Met data or other continuous data
 
