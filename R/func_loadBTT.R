@@ -15,7 +15,7 @@ load_BTT = function(){
   flist = dir(paste(btfilepath,"conc/",sep = ""))
   if (length(flist) > 1){
     print(flist)
-    j = choosefileprompt(flist)
+    j = as.numeric(choosefileprompt(flist))
   } else 
     j = 1
   
@@ -25,7 +25,7 @@ load_BTT = function(){
   flist = dir(paste(btfilepath,"met/",sep = ""))
   if (length(flist) > 1){
     print(flist)
-    j = choosefileprompt(flist)
+    j = as.numeric(choosefileprompt(flist))
   } else 
     j = 1
   

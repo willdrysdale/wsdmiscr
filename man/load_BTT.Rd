@@ -10,4 +10,5 @@ load_BTT()
 Loads in BT tower data based on parameters in the btconfig.R file.
 Voncentration should be in the subdirectory "conc" and meterological data
 in the sub directory "met"
+Defaults to C:/Users/username/Documents/R/win-library/3.3/wsdmiscr/extdata/btconfig.R
 }
