@@ -41,12 +41,12 @@ exp_day_comparison = function(d,dtraj,date = "24/04/2016",wbefore = 4,wafter = 4
   npoluniqueday = paste(pol," on ",date,sep = "")
   
   polcol = list(
-    blue = "no.x",
-    darkblue = "no.y",
+    darkblue = "no.x",
+    darkgoldenrod2 = "no.y",
     purple = "no2.x",
-    deeppurple = "no2.y",
-    red = "nox.x",
-    darkred = "nox.y"
+    darkolivegreen1 = "no2.y",
+    firebrick1 = "nox.x",
+    steelblue1= "nox.y"
   )
   
   laby = ""
