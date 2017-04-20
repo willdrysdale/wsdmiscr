@@ -9,6 +9,10 @@ devtools::install_github("willdrysdale/wsdmiscr")
 
 Included Functions:
 
+*aircraft_cal_flags*  
+**Data Handling**  
+Takes Aircraft NOx (AQD) and recalculates concentration data from in flight calibration information
+
 *aggregate_by_date_span*   
 **Data Handling**  
 Used for comparing GC runs,or other data with a start and end time, to a time series of Met data or other continuous data
@@ -23,7 +27,7 @@ Add Data to time series when both NOx (Teledyne) and O3 (Thermo) are connected t
 
 *btnox_adddata2*  
 **Data Handling**  
-Add Data to time series when NOx AQD (AQD) is logged on Google drive and O3 (Thermo) is connected to the envirologger
+Add Data to time series when NOx (AQD) is logged on Google drive and O3 (Thermo) is connected to the envirologger
 
 *chooseday*  
 **Data Handling**  

@@ -2,6 +2,7 @@
 
 export(BTT_update_conc_met)
 export(aggregate_by_date_span)
+export(aircraft_cal_flags)
 export(bt_fastnox_param_monitor)
 export(btnox_adddata)
 export(btnox_adddata2)
