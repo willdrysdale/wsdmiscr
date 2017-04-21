@@ -106,6 +106,15 @@ aircraft_cal_flags = function(d){
   d$NO2_Conc_adj = (((d$CH1_Hz - d$zero1)/d$ch1_sens_adj)-d$NO_Conc_adj)/d$no2_ce_adj
   d$NOx_Conc_adj = d$NO_Conc_adj + d$NO2_Conc_adj
   
+  #Apply Flags
+  d$NO_Conc_adj[d$no_conc == -99999.0000] = NA
+  d$NO_Conc_adj[d$no_conc == -49999.5000] = NA
+  
+  d$NO2_Conc_adj[d$no2_conc == -99999.0000] = NA
+  d$NO2_Conc_adj[d$no2_conc == -49999.5000] = NA
+  
+  d$NOx_Conc_adj[d$nox_conc == -99999.0000] = NA
+  d$NOx_Conc_adj[d$nox_conc == -49999.5000] = NA
   
   return(d)
 }
