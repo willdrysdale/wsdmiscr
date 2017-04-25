@@ -9,6 +9,9 @@ find_cal_ranges(d)
 \arguments{
 \item{Raw}{AQD NOx output}
 }
+\value{
+data frame containg start and end times and rows for calibrations
+}
 \description{
 Examines when the cal valve is on and off and returns the range of times that the cals occured in
 }

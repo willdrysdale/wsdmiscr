@@ -6,7 +6,7 @@
 
 
 good_cal_prompt = function(d){
-  i = readline(prompt = paste("Was the cal between, ",d$start," and ",d$end," good? [y/n] : ",sep = ""))
+  i = readline(prompt = paste("Was the cal between, ",as.character(d$start)," and ",as.character(d$end)," good? [y/n] : ",sep = ""))
   if (i == "y" | i == "n"){
     if (i == "y")
       d$good = 1
