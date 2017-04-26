@@ -7,8 +7,6 @@
 #' @return data frame containg start and end times and rows for calibrations 
 
 find_cal_ranges = function(d){
-  start = NULL
-  end = NULL
   startrow = NULL
   endrow = NULL
   #Skip NA
@@ -24,18 +22,23 @@ find_cal_ranges = function(d){
      next
     #cal valuve opens
     if (d$NOx_cal_valve[i] > d$NOx_cal_valve[i-1]){
-      start = c(start,d$UNIX_TS[i])
       startrow = c(startrow,i)
       next
     }
     #Cal valve closes
     if (d$NOx_cal_valve[i] < d$NOx_cal_valve[i-1]){
-      end = c(end,d$UNIX_TS[i-1])
       endrow = c(endrow,i-1)
       next
     }
   }
-  
+  if ("UNIX_TS" %in% names(d)){
+    start = d$UNIX_TS[startrow]
+    end = d$UNIX_TS[endrow]
+  }
+  if ("UNIX.TS" %in% names(d)){
+    start = d$UNIX.TS[startrow]
+    end = d$UNIX.TS[endrow]
+  }
   d2 = data.frame(parse_unix_time(start),startrow,parse_unix_time(end),endrow)
   names(d2) = c("start","startrow","end","endrow")
   return(d2)

@@ -57,49 +57,53 @@ aircraft_cal_flags = function(d){
     d$ch2_sens_adj[previous_cal_row] = sens2
     d$no2_ce_adj[previous_cal_row] = ce
     
-    for (i in (previous_cal_row+1):new_cal_row){
-      d$cal_obs[i] = d$cal_obs[i-1]+1
-      d$ch1_sens_adj[i] = d$ch1_sens_adj[i-1]+sens1_inc
-      d$ch2_sens_adj[i] = d$ch2_sens_adj[i-1]+sens2_inc
-      d$no2_ce_adj[i] = d$no2_ce_adj[i-1]+ce_inc
-    }
+    range = (previous_cal_row+1):new_cal_row
+    
+    d$cal_obs[range] = seq(2:(length(range)+1))
+    d$cal_obs[range] = d$cal_obs[range]+1
+    d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
+    d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
+    d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
   
-    
+  
+    #if (nrow(calranges_good) > 2){
     #Middle Intances of Recalculating
-    for (i in 2:nrow(calranges_good)-1){
-      previous_cal_row = new_cal_row
-      new_cal_row = calranges_good$endrow[i]+1
-      
-      sens1 = d$ch1_sens[previous_cal_row]
-      sens2 = d$ch2_sens[previous_cal_row]
-      ce = d$no2_ce[previous_cal_row]
-      
-      inter_cal_range = new_cal_row - previous_cal_row
-      sens1_inc = (d$ch1_sens[new_cal_row]-sens1)/inter_cal_range
-      sens2_inc = (d$ch2_sens[new_cal_row]-sens2)/inter_cal_range
-      ce_inc = (d$no2_ce[new_cal_row]-ce)/inter_cal_range
-      
-      d$cal_obs[previous_cal_row] = 1
-      d$ch1_sens_adj[previous_cal_row] = sens1
-      d$ch2_sens_adj[previous_cal_row] = sens2
-      d$no2_ce_adj[previous_cal_row] = ce
-      
-      for (j in (previous_cal_row+1):new_cal_row){
-        #d$cal_obs[j] = d$cal_obs[j-1]+1
-        d$ch1_sens_adj[j] = d$ch1_sens_adj[j-1]+sens1_inc
-        d$ch2_sens_adj[j] = d$ch2_sens_adj[j-1]+sens2_inc
-        d$no2_ce_adj[j] = d$no2_ce_adj[j-1]+ce_inc
+      for (i in 2:nrow(calranges_good)){
+        previous_cal_row = new_cal_row
+        new_cal_row = calranges_good$endrow[i]+1
+        
+        sens1 = d$ch1_sens[previous_cal_row]
+        sens2 = d$ch2_sens[previous_cal_row]
+        ce = d$no2_ce[previous_cal_row]
+        
+        inter_cal_range = new_cal_row - previous_cal_row
+        sens1_inc = (d$ch1_sens[new_cal_row]-sens1)/inter_cal_range
+        sens2_inc = (d$ch2_sens[new_cal_row]-sens2)/inter_cal_range
+        ce_inc = (d$no2_ce[new_cal_row]-ce)/inter_cal_range
+        
+        d$cal_obs[previous_cal_row] = 1
+        d$ch1_sens_adj[previous_cal_row] = sens1
+        d$ch2_sens_adj[previous_cal_row] = sens2
+        d$no2_ce_adj[previous_cal_row] = ce
+        
+        range = (previous_cal_row+1):new_cal_row
+        
+        d$cal_obs[range] = seq(2:(length(range)+1))
+        d$cal_obs[range] = d$cal_obs[range]+1
+        d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
+        d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
+        d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
       }
-    }
-    
+    #}
     #Final Instance of Recalculating
     previous_cal_row = new_cal_row
-    for (j in (previous_cal_row+1):nrow(d)){
-      d$cal_obs[j] = d$cal_obs[j-1]+1
-      d$ch1_sens_adj[j] = d$ch1_sens_adj[j-1]
-      d$ch2_sens_adj[j] = d$ch2_sens_adj[j-1]
-      d$no2_ce_adj[j] = d$no2_ce_adj[j-1]
-    }
+    range = previous_cal_row:nrow(d)
+    
+    d$cal_obs[range] = seq(2:(length(range)+1))
+    d$cal_obs[range] = d$cal_obs[range]+1
+    d$ch1_sens_adj[range] = d$ch1_sens_adj[j-1]
+    d$ch2_sens_adj[range] = d$ch2_sens_adj[j-1]
+    d$no2_ce_adj[range] = d$no2_ce_adj[j-1]
   }else{
     #Only one Calibration
     #First instance of recalculating 
@@ -115,20 +119,25 @@ aircraft_cal_flags = function(d){
     d$ch2_sens_adj[previous_cal_row] = sens2
     d$no2_ce_adj[previous_cal_row] = ce
     
-    for (i in (previous_cal_row+1):new_cal_row){
-      d$cal_obs[i] = d$cal_obs[i-1]+1
-      d$ch1_sens_adj[i] = d$ch1_sens_adj[i-1]+sens1_inc
-      d$ch2_sens_adj[i] = d$ch2_sens_adj[i-1]+sens2_inc
-      d$no2_ce_adj[i] = d$no2_ce_adj[i-1]+ce_inc
-    }
+    range = (previous_cal_row+1):new_cal_row
+    
+    d$cal_obs[range] = seq(2:(length(range)+1))
+    d$cal_obs[range] = d$cal_obs[range]+1
+    d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
+    d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
+    d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
+  
     #Single Calibration to end
     previous_cal_row = new_cal_row
-    for (j in (previous_cal_row+1):nrow(d)){
-      d$cal_obs[j] = d$cal_obs[j-1]+1
-      d$ch1_sens_adj[j] = d$ch1_sens_adj[j-1]
-      d$ch2_sens_adj[j] = d$ch2_sens_adj[j-1]
-      d$no2_ce_adj[j] = d$no2_ce_adj[j-1]
-    }
+    d$cal_obs[previous_cal_row] = 1
+    range = previous_cal_row:nrow(d)
+    
+    d$cal_obs[range] = seq(2:(length(range)+1))
+    d$cal_obs[range] = d$cal_obs[range]+1
+    d$ch1_sens_adj[range] = d$ch1_sens_adj[j-1]
+    d$ch2_sens_adj[range] = d$ch2_sens_adj[j-1]
+    d$no2_ce_adj[range] = d$no2_ce_adj[j-1]
+    
   }
   #Recalculate Concentrations
   
