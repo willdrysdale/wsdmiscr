@@ -29,6 +29,10 @@ Add Data to time series when both NOx (Teledyne) and O3 (Thermo) are connected t
 **Data Handling**  
 Add Data to time series when NOx (AQD) is logged on Google drive and O3 (Thermo) is connected to the envirologger
 
+*BTT_clean_high*  
+**Data Handling**  
+Removes NO,No2 and NOx values greater than 500 ppb and o3 greater than 300 ppb
+
 *chooseday*  
 **Data Handling**  
 Can be supplied start and end date separated by day month and year, openair's chooseBydate supersedes this
@@ -76,6 +80,10 @@ Formats the BT Tower time series filename to the NCAS data archive format
 *padtimeseries*  
 **Data Handling**  
 Fills in time series' gaps with date and blanks at specified intervals
+
+*process_BTT_flags*  
+**Data Handling**  
+Applies the rules required by data flags to data
 
 *pollution_colour*  
 **Plotting**  
