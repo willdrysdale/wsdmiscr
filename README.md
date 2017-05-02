@@ -13,10 +13,6 @@ Included Functions:
 **Data Handling**  
 Takes Aircraft NOx (AQD) and recalculates concentration data from in flight calibration information
 
-*aggregate_by_date_span*   
-**Data Handling**  
-Used for comparing GC runs,or other data with a start and end time, to a time series of Met data or other continuous data
-
 *bt_fastnox_param_monitor*  
 **Data Handling**  
 Produces a quick monitor file from the AQD NOx insturment at the BT
