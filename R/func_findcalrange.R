@@ -1,8 +1,8 @@
-#' Frind Cal range
+#' Find Cal range
 #' 
 #' Examines when the cal valve is on and off and returns the range of times that the cals occured in
 #' 
-#' @param Raw AQD NOx output
+#' @param d Raw AQD NOx output
 #' 
 #' @return data frame containg start and end times and rows for calibrations 
 
