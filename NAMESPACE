@@ -2,7 +2,6 @@
 
 export(BTT_clean_high)
 export(BTT_update_conc_met)
-export(aggregate_by_date_span)
 export(aircraft_cal_flags)
 export(aircraft_clean_negatives)
 export(bt_fastnox_param_monitor)

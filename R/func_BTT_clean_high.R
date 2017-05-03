@@ -12,13 +12,13 @@ BTT_clean_high = function(d){
   d$qc_flag_no2[d$no > 500] = 5
   d$qc_flag_nox[d$no > 500] = 5
   d$qc_flag_no[d$no > 500] = 5
-  d$qc_flag_no[d$o3 > 300] = 5
+  d$qc_flag_o3[d$o3 > 300] = 5
   
   d$no[d$no > 500] = NA
   d$no2[d$no > 500] = NA
   d$nox[d$no > 500] = NA
   d$no[d$no > 500] = NA
-  d$no[d$o3 > 300] = NA
+  d$o3[d$o3 > 300] = NA
   
   #return
   d
