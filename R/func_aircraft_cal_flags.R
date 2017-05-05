@@ -33,11 +33,11 @@ aircraft_cal_flags = function(d){
     }
   }
   #Flag the Zeros
-  range_zero = (zeroranges$startrow[1]):(zeroranges$endrow[1]+1)
+  range_zero = (zeroranges$startrow[1]):(zeroranges$endrow[1]+5)
   d$zero_flag[range_zero] = 1
   
   for (i in 2:nrow(zeroranges)){
-    range_zero = (zeroranges$startrow[i]-1):(zeroranges$endrow[i]+1)
+    range_zero = (zeroranges$startrow[i]-1):(zeroranges$endrow[i]+5)
     d$zero_flag[range_zero] = 1
   }
   
