@@ -101,9 +101,9 @@ aircraft_cal_flags = function(d){
     
     d$cal_obs[range] = seq(2:(length(range)+1))
     d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = d$ch1_sens_adj[j-1]
-    d$ch2_sens_adj[range] = d$ch2_sens_adj[j-1]
-    d$no2_ce_adj[range] = d$no2_ce_adj[j-1]
+    d$ch1_sens_adj[range] = d$ch1_sens_adj[previous_cal_row-1]
+    d$ch2_sens_adj[range] = d$ch2_sens_adj[previous_cal_row-1]
+    d$no2_ce_adj[range] = d$no2_ce_adj[previous_cal_row-1]
   }else{
     #Only one Calibration
     #First instance of recalculating 
@@ -134,9 +134,9 @@ aircraft_cal_flags = function(d){
     
     d$cal_obs[range] = seq(2:(length(range)+1))
     d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = d$ch1_sens_adj[j-1]
-    d$ch2_sens_adj[range] = d$ch2_sens_adj[j-1]
-    d$no2_ce_adj[range] = d$no2_ce_adj[j-1]
+    d$ch1_sens_adj[range] = d$ch1_sens_adj[previous_cal_row-1]
+    d$ch2_sens_adj[range] = d$ch2_sens_adj[previous_cal_row-1]
+    d$no2_ce_adj[range] = d$no2_ce_adj[previous_cal_row-1]
     
   }
   #Recalculate Concentrations
