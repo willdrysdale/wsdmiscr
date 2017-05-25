@@ -155,8 +155,8 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
     ABL <- rep(1500,nrow(d))
   )
 
-#  row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
-#  ns.data <- ns.data[!row.has.na,]
+  row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
+  ns.data <- ns.data[!row.has.na,]
 
   ns.data$X = 1:nrow(ns.data)
   
