@@ -1,6 +1,5 @@
 Package: wsdmiscr
 Version: 0.5.0
-
 Date: 2017-04-07
 Title: Misc Time Series Management Functions
 Decription: Various functions for time series handling and data selection
