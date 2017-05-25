@@ -13,9 +13,21 @@ Included Functions:
 **Data Handling**  
 Takes Aircraft NOx (AQD) and recalculates concentration data from in flight calibration information
 
+*aggregate_by_date_span*   
+**Data Handling**  
+Used for comparing GC runs,or other data with a start and end time, to a time series of Met data or other continuous data
+
+*BTT_calibration_profile*
+**Data Handling**
+Produces a profile of the corrected calibration paramaters from the BTT AQD NOx instrument at a 1 min average
+
+*BTT_raw_data_processing*
+**Data Handling**
+Converts the BTT AQD NOx output into a file ready for use in custom EC code
+
 *bt_fastnox_param_monitor*  
 **Data Handling**  
-Produces a quick monitor file from the AQD NOx insturment at the BT
+Produces a quick monitor file from the AQD NOx insturment at the BT Tower
 
 *btnox_adddata*  
 **Data Handling**  
@@ -60,6 +72,10 @@ Componenent of exp_day_comparison that handels days only
 *flagdata*  
 **Data Handling**  
 Used to flag the data from the BT Tower
+
+*get_DOY*
+**Data Handling**
+Returns DOY.decialday from a POSIXct date
 
 *load_BTT*  
 **Data Handling**  
