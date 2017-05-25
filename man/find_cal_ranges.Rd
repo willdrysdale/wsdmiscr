@@ -2,12 +2,12 @@
 % Please edit documentation in R/func_findcalrange.R
 \name{find_cal_ranges}
 \alias{find_cal_ranges}
-\title{Frind Cal range}
+\title{Find Cal range}
 \usage{
 find_cal_ranges(d)
 }
 \arguments{
-\item{Raw}{AQD NOx output}
+\item{d}{Raw AQD NOx output}
 }
 \value{
 data frame containg start and end times and rows for calibrations

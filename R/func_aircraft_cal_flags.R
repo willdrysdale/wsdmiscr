@@ -11,6 +11,7 @@
 aircraft_cal_flags = function(d){
   #Create Table of ranges where calibration valve is active
   calranges = find_cal_ranges(d)
+  zeroranges = find_zero_ranges(d)
   
   #ask user to state whether the cal should be used or not
   calranges = plyr::adply(calranges, 1, function(x) 
@@ -20,12 +21,24 @@ aircraft_cal_flags = function(d){
   
   #Initialise a new flag column 
   d$cal_flag = 0 
+  d$cal_on = 0
+  d$zero_flag = 0
   #Flag the calibrations that the user has defined as good with 1
   for (i  in 1:nrow(calranges)){
+    range_on = (calranges$startrow[i]-1):(calranges$endrow[i]+1)
+    range_flag = calranges$startrow[i]:calranges$endrow[i]
+    d$cal_on[range_on] = 1
     if(calranges$good[i] == 1){
-      for (j in calranges$startrow[i]:calranges$endrow[i])
-        d$cal_flag[j] = 1
+        d$cal_flag[range_flag] = 1
     }
+  }
+  #Flag the Zeros
+  range_zero = (zeroranges$startrow[1]):(zeroranges$endrow[1]+5)
+  d$zero_flag[range_zero] = 1
+  
+  for (i in 2:nrow(zeroranges)){
+    range_zero = (zeroranges$startrow[i]-1):(zeroranges$endrow[i]+5)
+    d$zero_flag[range_zero] = 1
   }
   
   #Attain the initial nominals
@@ -146,14 +159,17 @@ aircraft_cal_flags = function(d){
   d$NOx_Conc_adj = d$NO_Conc_adj + d$NO2_Conc_adj
   
   #Apply Flags
-  d$NO_Conc_adj[d$no_conc == -99999.0000] = NA
-  d$NO_Conc_adj[d$no_conc == -49999.5000] = NA
+  d$NO_Conc_adj[d$cal_on == 1] = NA
   
-  d$NO2_Conc_adj[d$no2_conc == -99999.0000] = NA
-  d$NO2_Conc_adj[d$no2_conc == -49999.5000] = NA
+  d$NO2_Conc_adj[d$cal_on == 1] = NA
   
-  d$NOx_Conc_adj[d$nox_conc == -99999.0000] = NA
-  d$NOx_Conc_adj[d$nox_conc == -49999.5000] = NA
+  d$NOx_Conc_adj[d$cal_on == 1] = NA
+  
+  d$NO_Conc_adj[d$zero_flag == 1] = NA
+  
+  d$NO2_Conc_adj[d$zero_flag == 1] = NA
+  
+  d$NOx_Conc_adj[d$zero_flag == 1] = NA
   
   return(d)
 }
