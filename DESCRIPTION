@@ -1,5 +1,5 @@
 Package: wsdmiscr
-Version: 0.4.8
+Version: 0.4.9
 Date: 2017-04-07
 Title: Misc Time Series Management Functions
 Decription: Various functions for time series handling and data selection
@@ -9,5 +9,6 @@ URL: https://github.com/willdrysdale/wsdmiscr
 Depends: 
     waclr,
     openair,
-    plyr
+    plyr,
+    zoo
 RoxygenNote: 6.0.0
