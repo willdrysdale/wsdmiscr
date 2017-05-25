@@ -5,7 +5,8 @@
 #' If the calibration parameters drift outside of a set percetange away from the average *nominal*, they are converted to NA
 #' 
 #' @param d dataframe of bound crit files
-#' @param percent_drift numerical value of percentage drift allowed i.e 50% is provided as 50
+#' @param percent_drift numerical value of percentage drift allowed i.e 50 percent is provided as 50
+#' 
 
 BTT_cal_clean = function(d,percent_drift){
   #Calculate multipliers

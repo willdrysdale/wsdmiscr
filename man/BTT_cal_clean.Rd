@@ -9,7 +9,7 @@ BTT_cal_clean(d, percent_drift)
 \arguments{
 \item{d}{dataframe of bound crit files}
 
-\item{percent_drift}{numerical value of percentage drift allowed i.e 50% is provided as 50}
+\item{percent_drift}{numerical value of percentage drift allowed i.e 50 percent is provided as 50}
 }
 \description{
 As the BTT calibrations performed automatically, and are less likley to be incorrect than an Aircraft Calibration, the user

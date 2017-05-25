@@ -18,3 +18,6 @@
 \description{
 From the 1 min AQD crit file, a profile of the corrected calibration paramaters is produced
 }
+\author{
+Will S. Drysdale
+}

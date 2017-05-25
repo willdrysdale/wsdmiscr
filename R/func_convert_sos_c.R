@@ -14,7 +14,7 @@ convert_temp_sos_c = function(d){
   }
   #Convert Speed of sound to degrees celcius
   d$temp = (d$sonic_temp - 331.5)/0.6
-  
+  #d$temp = (d$sonic_temp - 323.44)/0.5564
   return(d)
   
 }
