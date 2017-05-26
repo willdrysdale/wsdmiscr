@@ -17,9 +17,6 @@
 
 BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   
-  rows = nrow(d)
-  #allow enough digits for milliseconds to be captured
-  options(digits = 12)
   #When Zero Valves are NA make them 0
   d$zero_valve_1[is.na(d$zero_valve_1)] = 0
   d$zero_valve_2[is.na(d$zero_valve_2)] = 0
@@ -40,8 +37,10 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   #Create a unix_timestamp
   d$UNIX_TS = as.numeric(waclr::parse_excel_date(d$TheTime))
   #Create a unix_timestamp rounded to the nearest minute
-  d$UNIX_TS_min = parse_unix_time(d$UNIX_TS)
-  d$UNIX_TS_min = round_date(d$UNIX_TS_min,"1 mins")
+  d$UNIX_TS_min = waclr::parse_unix_time(d$UNIX_TS)
+  
+  d$UNIX_TS_min = floor_date(d$UNIX_TS_min, "min")
+  
   d$UNIX_TS_min = as.numeric(d$UNIX_TS_min)
   #Select the Portion of the calibration profile that applies to this file
   begin = d$UNIX_TS_min[1]
@@ -51,35 +50,21 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   cal_pro = cal_pro[,c(1,2,6,7,8)]
   names(cal_pro)[2] = "TheTime_cp"
   
-  d = merge(d,cal_pro,by = "UNIX_TS_min",all = T)
+  d <- dplyr::left_join(d, cal_pro, by = "UNIX_TS_min")
   
   #Recalculate concentrations
   d$NO_Conc_adj = (d$CH2_Hz - d$CH2_zero)/d$ch2_sens_adj
   d$NO2_Conc_adj = (((d$CH1_Hz - d$CH1_zero)/d$ch1_sens_adj)-d$NO_Conc_adj)/d$no2_ce_adj
   d$NOx_Conc_adj = d$NO_Conc_adj + d$NO2_Conc_adj
   
-  #Transfer NA's from Calibrtations and Zeros
-  d$NOx_Conc_adj[is.na(d$NOx_Conc)] = NA
-  d$NOx_Conc_adj[is.na(d$NO2_Conc)] = NA
-  d$NOx_Conc_adj[is.na(d$NO_Conc)] = NA
-  
-  d$NO2_Conc_adj[is.na(d$NO2_Conc)] = NA
-  
-  d$NO2_Conc_adj[is.na(d$NO2_Conc)] = NA
-  
-  d$NO_Conc_adj[is.na(d$NO_Conc)] = NA
-  
   #remove any superfluous rows
-  d = d[1:rows,]
+  d =  d[!is.na(d[, "UNIX_TS"]), ]
   
   #Create POSIXct Time
   the_time = waclr::parse_excel_date(d$TheTime)
-  df_the_time = data.frame(the_time)
-  names(df_the_time) = "date"
+  df_the_time = data.frame(date = the_time)
   #calculates day of year + decimal day
-  DOY = plyr::adply(df_the_time, 1, function(x) 
-    get_DOY(x))
-  DOY = DOY[,2]
+  DOY = wsdmiscr::get_DOY(df_the_time)
   
   #calculates hour of day + decimal hour
   UTC <- as.POSIXlt(the_time)
@@ -87,8 +72,7 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   
   #Process Met process and add
   extra_met = BTT_parse_1hz_met(extra_met)
-  d = merge(d,extra_met,by = "UNIX_TS_min")
-  
+  d <- dplyr::left_join(d, extra_met, by = "UNIX_TS_min")
   
   #set fast U wind measurement
   fst_u <- d$u
@@ -151,14 +135,17 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
     fst_FD_mole_NO1_insitu,
     fst_FD_mole_NO2_insitu,
     fst_FD_mole_H2O_hut,
-    uls_z <- rep(170,nrow(d)),
-    ABL <- rep(1500,nrow(d))
+    uls_z = rep(177,nrow(d)),
+    ABL = rep(1500,nrow(d))
   )
 
   row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
   ns.data <- ns.data[!row.has.na,]
 
   ns.data$X = 1:nrow(ns.data)
+  
+  # Ensure table is arranged by date
+  #ns.data <- dplyr::arrange(ns.data, DOY)
   
   #return
   ns.data
