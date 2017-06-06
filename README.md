@@ -25,6 +25,14 @@ Produces a profile of the corrected calibration paramaters from the BTT AQD NOx 
 **Data Handling**
 Converts the BTT AQD NOx output into a file ready for use in custom EC code
 
+*BTT_EP_raw_data_processing*
+**Data Handling**
+Converts the BTT AQD NOx output into a file ready for use in Eddy Pro
+
+*BTT_parse_1hz_met*
+**Data Handling**
+Processed the 1Hz met data from BTT met station into 1 min data for use in both raw_data_processing functions
+
 *bt_fastnox_param_monitor*  
 **Data Handling**  
 Produces a quick monitor file from the AQD NOx insturment at the BT Tower

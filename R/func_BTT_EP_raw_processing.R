@@ -1,21 +1,21 @@
-#' BTT_raw_data_processing
+#' BTT_EP_raw_data_processing
 #' 
 #' Takes the raw output of the fast AQD NOx instruments at the BTT, and when supplied a calibration profile, output
 #' by BTT_calibration_profile and the processed met data from the Reading data downloader - returns a file ready to be run
-#' in custom EC code. Built ontop of the orginal script by Adam R. Vaughan for BTT(2012) and the Beijing Site(2017)
+#' in Eddy Pro. Built ontop of the orginal script by Adam R. Vaughan for BTT(2012) and the Beijing Site(2017)
 #' 
 #' @param d Raw AQD Output
 #' @param calibration_profile profile produced by BTT_calibration_profile from 1 min crit files
 #' @param extra_met output of BTT_parse_1hz_met
 #' 
-#' @return data.frame of the format to pass to custom EC code
+#' @return data.frame of the format to pass to Eddy Pro
 #' 
 #' @export
 #' 
 #' @author Will S. Drysdale
 
 
-BTT_raw_data_processing = function(d,calibration_profile,extra_met){
+BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met){
   
   #When Zero Valves are NA make them 0
   d$zero_valve_1[is.na(d$zero_valve_1)] = 0
@@ -57,15 +57,22 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   d$NO2_Conc_adj = (((d$CH1_Hz - d$CH1_zero)/d$ch1_sens_adj)-d$NO_Conc_adj)/d$no2_ce_adj
   d$NOx_Conc_adj = d$NO_Conc_adj + d$NO2_Conc_adj
   
-  #remove any superfluous rows
-  d =  d[!is.na(d[, "UNIX_TS"]), ]
-  
   #Filter negatives
   d$NOx_Conc_adj[d$NO_Conc_adj < 0] = NA
   d$NOx_Conc_adj[d$NO2_Conc_adj < 0] = NA
   d$NO_Conc_adj[d$NO_Conc_adj < 0] = NA
   d$NO2_Conc_adj[d$NO2_Conc_adj < 0] = NA
   d$NOx_Conc_adj[d$NOx_Conc_adj < 0] = NA
+  
+  #remove any superfluous rows
+  d =  d[!is.na(d[, "UNIX_TS"]), ]
+  
+  #Select the Portion of the met data that applies to this file
+  met_pro = extra_met[(extra_met$UNIX_TS_min >= begin) & (extra_met$UNIX_TS_min <= end),]
+  met_pro = na.omit(met_pro)
+  met_pro = met_pro[,c(2:8)]
+  met_pro$UNIX_TS_min = round(met_pro$UNIX_TS_min)
+  d <- dplyr::left_join(d, met_pro, by = "UNIX_TS_min")
   
   #Create POSIXct Time
   the_time = waclr::parse_excel_date(d$TheTime)
@@ -76,13 +83,6 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   #calculates hour of day + decimal hour
   UTC <- as.POSIXlt(the_time)
   UTC <- UTC$hour + UTC$min/60 + UTC$sec/3600
-  
-  #Select the Portion of the met data that applies to this file
-  met_pro = extra_met[(extra_met$UNIX_TS_min >= begin) & (extra_met$UNIX_TS_min <= end),]
-  met_pro = na.omit(met_pro)
-  met_pro = met_pro[,c(2:8)]
-  met_pro$UNIX_TS_min = round(met_pro$UNIX_TS_min)
-  d <- dplyr::left_join(d, met_pro, by = "UNIX_TS_min")
   
   #set fast U wind measurement
   fst_u <- d$u
@@ -96,9 +96,9 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   #set temperature measurements, slow temp from slow met and fast temp converted from speed of sound
   slow_Temp <- d$slow_temp
   
-  d = plyr::adply(d, 1, function(x) convert_temp_sos_c(x))
-  fst_SONIC_T <- d$temp
-  #fst_SONIC_T <- d$slow_temp
+  #d = plyr::adply(d, 1, function(x) convert_temp_sos_c(x))
+  #fst_SONIC_T <- d$temp
+  fst_SONIC_T <- d$sonic_temp
   
   #set pressure at the tower
   slow_p <- d$pressure
@@ -129,8 +129,8 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   fst_FD_mole_H2O_insitu <- humidity
   fst_FD_mole_H2O_hut <- humidity
   
-  fst_FD_mole_NO1_insitu <- d$NO_Conc_adj * 1e-12
-  fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj * 1e-12
+  fst_FD_mole_NO1_insitu <- d$NO_Conc_adj #* 1e-12
+  fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj #* 1e-12
   
   ns.data <- data.frame(
     DOY,
@@ -148,10 +148,10 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
     uls_z = rep(177,nrow(d)),
     ABL = rep(1500,nrow(d))
   )
-
+  
   row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
   ns.data <- ns.data[!row.has.na,]
-
+  
   ns.data$X = 1:nrow(ns.data)
   
   # Ensure table is arranged by date
