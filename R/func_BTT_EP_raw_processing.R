@@ -129,8 +129,8 @@ BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met){
   fst_FD_mole_H2O_insitu <- humidity
   fst_FD_mole_H2O_hut <- humidity
   
-  fst_FD_mole_NO1_insitu <- d$NO_Conc_adj #* 1e-12
-  fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj #* 1e-12
+  fst_FD_mole_NO1_insitu <- d$NO_Conc_adj * 1e-3
+  fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj * 1e-3
   
   ns.data <- data.frame(
     DOY,
