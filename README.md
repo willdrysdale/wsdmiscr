@@ -65,6 +65,10 @@ Component of convert met data - must be fed dataframe line by line
 **Data Handling**  
 Component of convert met data - must be fed dataframe line by line
 
+*date_from_decimal_day*
+**Data Handling**  
+converts DOY.decimalday into a POSIXct object
+
 *exp_day_comparison*  
 **Experiment**  
 When Given a date, it is compared to the average of a user specified number of previous day of week (i.e X previous wednesdays) and previous days

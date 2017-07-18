@@ -1,5 +1,5 @@
 Package: wsdmiscr
-Version: 0.5.4
+Version: 0.5.5
 Date: 2017-04-07
 Title: Misc Time Series Management Functions
 Decription: Various functions for time series handling and data selection
@@ -10,5 +10,6 @@ Depends:
     waclr,
     openair,
     plyr,
-    zoo
-RoxygenNote: 6.0.0
+    zoo,
+    chron
+RoxygenNote: 6.0.1
