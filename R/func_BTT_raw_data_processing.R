@@ -34,6 +34,30 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   
   d$NO_Conc[d$NO_Conc == Inf] = NA
   
+  d$CH1_Hz[d$NOx2_conc == Inf] = NA
+  d$CH1_Hz[d$NO2_Conc == Inf] = NA
+  d$CH1_Hz[d$NO_Conc == Inf] = NA
+  
+  d$CH1_Hz[d$NOx_Conc == Inf] = NA
+  d$CH1_Hz[d$NO2_Conc == Inf] = NA
+  d$CH1_Hz[d$NO_Conc == Inf] = NA
+  
+  d$CH1_Hz[d$NO2_Conc == Inf] = NA
+  
+  d$CH1_Hz[d$NO_Conc == Inf] = NA
+  
+  d$CH2_Hz[d$NOx2_conc == Inf] = NA
+  d$CH2_Hz[d$NO2_Conc == Inf] = NA
+  d$CH2_Hz[d$NO_Conc == Inf] = NA
+  
+  d$CH2_Hz[d$NOx_Conc == Inf] = NA
+  d$CH2_Hz[d$NO2_Conc == Inf] = NA
+  d$CH2_Hz[d$NO_Conc == Inf] = NA
+  
+  d$CH2_Hz[d$NO2_Conc == Inf] = NA
+  
+  d$CH2_Hz[d$NO_Conc == Inf] = NA
+  
   #Create a unix_timestamp
   d$UNIX_TS = as.numeric(waclr::parse_excel_date(d$TheTime))
   #Create a unix_timestamp rounded to the nearest minute
