@@ -11,10 +11,9 @@
 #' 
 #' @export
 
-BTT_CEH_data_reprocess = function(d,header){
+BTT_CEH_data_reprocess = function(d,header,filename){
   names(d) = names(header)
   #Prodcue Timestamp
-  filename = flist[1]
   filename = strsplit(filename,split = "_")
   day = ymd(filename[[1]][3])
   time = filename[[1]][4]
