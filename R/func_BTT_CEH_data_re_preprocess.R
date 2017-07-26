@@ -15,8 +15,8 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   names(d) = names(header)
   #Prodcue Timestamp
   filename = strsplit(filename,split = "_")
-  day = ymd(filename[[1]][3])
-  time = filename[[1]][4]
+  day = ymd(filename[[1]][4])
+  time = filename[[1]][5]
   time = strsplit(time,split = ".asc")
   time = time[[1]][1]
   time = substring(time,c(1,3),c(2,4))
@@ -24,10 +24,7 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   date = paste(day,time)
   date = ymd_hm(date)
   
-  
-  end_date = hm(time)+hm(h)
-  end_date = paste(day,end_date)
-  end_date = ymd_hms(end_date)
+  end_date = date + 3600
   
   d$X = seq(1,nrow(d),1)
   rows = nrow(d)+1
@@ -41,7 +38,7 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   UTC <- UTC$hour + UTC$min/60 + UTC$sec/3600
   
   #Wind
-  fst_u = d$u..m.s.
+  fst_u = d$u
   fst_v = d$v..m.s.
   fst_w = d$w..m.s.
   
