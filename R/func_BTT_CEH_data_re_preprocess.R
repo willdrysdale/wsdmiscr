@@ -16,7 +16,7 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   #Prodcue Timestamp
   filename = strsplit(filename,split = "_")
   day = ymd(filename[[1]][3])
-  time = filename[[1]][3]
+  time = filename[[1]][4]
   time = strsplit(time,split = ".asc")
   time = time[[1]][1]
   time = substring(time,c(1,3),c(2,4))
