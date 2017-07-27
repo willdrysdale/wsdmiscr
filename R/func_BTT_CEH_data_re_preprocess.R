@@ -43,8 +43,7 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   fst_w = d$w..m.s.
   
   #Temperature
-  d$sonic_temp = d$Speed.of.sound
-  d = plyr::adply(d, 1, function(x) convert_temp_sos_c(x),.progress = "text")
+  d$temp = convert_temp_sos_c_2(d$Speed.of.sound)
   slow_Temp = d$temp
   fst_SONIC_T <- d$temp
   
