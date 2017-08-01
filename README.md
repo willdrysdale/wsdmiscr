@@ -85,6 +85,10 @@ Componenent of exp_day_comparison that handels day of week only
 **Experiment**  
 Componenent of exp_day_comparison that handels days only
 
+*find_ranges*
+**Data Handling**
+Used to return ranges of rows where a valve has switched from 0 to 1 or vice versa. Improves upon find_cal_range and find_zero_range
+
 *flagdata*  
 **Data Handling**  
 Used to flag the data from the BT Tower
@@ -109,6 +113,10 @@ Formats the BT Tower time series filename to the NCAS data archive format
 **Data Handling**  
 Fills in time series' gaps with date and blanks at specified intervals
 
+*process.aircraft*
+**Data Handling**
+Reads in an AQD NOx aircraft file and runs aircraft_cal_flags, prodcuing quicklook and full outputs
+
 *process_BTT_flags*  
 **Data Handling**  
 Applies the rules required by data flags to data
@@ -116,6 +124,10 @@ Applies the rules required by data flags to data
 *pollution_colour*  
 **Plotting**  
 Used to keep plot colours consistent
+
+*read.aircraft*
+**File Handling**
+Reads in an aircraft CSV and creates the UNIX_TS column used by aircraft_cal_flag 
 
 *sub_all*  
 **Data Handling**  

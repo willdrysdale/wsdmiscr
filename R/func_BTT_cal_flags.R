@@ -8,7 +8,7 @@
 
 BTT_cal_flags = function(d){
   #Create Table of ranges where calibration valve is active
-  calranges = BTT_find_cal_ranges(d)
+  calranges = find_ranges(d,17)
   
   #Initialise a new flag column 
   d$cal_flag = 0 
