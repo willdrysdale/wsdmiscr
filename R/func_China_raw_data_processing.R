@@ -138,7 +138,7 @@ China_raw_data_processing = function(d,my_sens1,my_sens2,calibration_profile){
   fst_FD_mole_NO1_insitu <- d$NO_Conc_adj * 1e-12
   fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj * 1e-12
   
-  fst_FD_mole_CO_insitu = d$co_5hz * 1e-9
+  fst_FD_mole_CO1_insitu = d$co_5hz * 1e-9
   
   ns.data <- data.frame(
     DOY,
