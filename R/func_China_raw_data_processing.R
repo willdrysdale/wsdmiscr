@@ -152,7 +152,7 @@ China_raw_data_processing = function(d,my_sens1,my_sens2,calibration_profile){
     fst_FD_mole_H2O_insitu,
     fst_FD_mole_NO1_insitu,
     fst_FD_mole_NO2_insitu,
-    fst_FD_mole_CO_insitu,
+    fst_FD_mole_CO1_insitu,
     fst_FD_mole_H2O_hut,
     uls_z = rep(177,nrow(d)),
     ABL = rep(1500,nrow(d))
