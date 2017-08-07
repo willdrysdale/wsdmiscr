@@ -55,8 +55,8 @@ China_raw_data_processing = function(d,my_sens1,my_sens2,calibration_profile){
   
   #Find Zero values
   zeros = find_ranges(d,23)
-  ch1_zero = mean(d$CH1_Hz[(zeros$startrow+5):zeros$endrow])
-  ch2_zero = mean(d$CH2_Hz[(zeros$startrow+5):zeros$endrow])
+  ch1_zero = mean(d$CH1_Hz[(zeros$startrow+5):zeros$endrow], na.rm = T)
+  ch2_zero = mean(d$CH2_Hz[(zeros$startrow+5):zeros$endrow], na.rm = T)
   
   #Select the Portion of the calibration profile that applies to this file
   begin = d$UNIX_TS_min[1]
