@@ -24,8 +24,8 @@ massPlot = function(d,pol,fn,backTraj,start,end,s){
   
   pdf(file = fn, width = 15)
   #----Met independant plots---#
-  print("Plotting Summary")
-  massplotsummary(d)
+  #print("Plotting Summary")
+  #massplotsummary(d)
   
   print("Plotting timePlot")
   massPlottimeseries(d,pol)
