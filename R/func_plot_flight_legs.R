@@ -9,6 +9,7 @@
 #' @param output_file_path location to save plots
 #' @param flight_map supply a gg_map file to override the automatic map generation
 #' @param missing_flag data flag to convert to NA
+#' @param zoom adjust map zoom level
 #' 
 #' @author W S Drysdale
 #' 
@@ -19,12 +20,22 @@ plot_flight_legs = function(flight_data,
                             flight_sum_path,
                             plot_range = T,
                             maptype = "toner",
-                            output_file_path,
+                            output_file_path = "plots/",
                             colour_by = c("nox_conc","o3_teco","alt_gin"),
                             flight_map,
-                            missing_flag,
-                            ...){
-
+                            missing_flag = -9999,
+                            zoom = 8,
+                            logplot = c(T,F,F),
+                            colourpoints = 10,
+                            range_control = T,
+                            cube_helix = T
+                            ){
+    if(length(logplot) != length(colour_by))
+      stop("Logplot and colour_by lengths differ")
+    if(cube_helix)
+      cols = rje::cubeHelix(colourpoints,start = pi*2)
+    else
+      cols = viridis::plasma(colourpoints)
     #Read in flight summary and store flight number
     flight_sum = read.faam_flight_sum(flight_sum_path)
     flight_no = flight_sum$flight_no[1]
@@ -41,7 +52,7 @@ plot_flight_legs = function(flight_data,
     max_lat = max(flight_data$lat_gin,na.rm = T)
     min_lat = min(flight_data$lat_gin,na.rm = T)
     
-    #function to find the halfwqay point of the lat longs
+    #function to find the halfway point of the lat longs
     halfway_between = function(max,min){
       range = max-min
       halfway = min+(range/2)
@@ -53,18 +64,32 @@ plot_flight_legs = function(flight_data,
       flight_map = get_map(location = c(lon = halfway_between(max_lon,min_lon),
                                         lat = halfway_between(max_lat,min_lat)),
                            maptype = maptype,
-                           zoom = 8)
+                           zoom = zoom)
       }
     
+    #Determine percentile_value for each colourby 
+    for (i in 1:length(colour_by)){
+     if(i == 1){
+       minimum = min(flight_data[,colour_by[i]],na.rm = T)
+       maximum = max(flight_data[,colour_by[i]],na.rm = T)
+     }
+     else{
+       minimum = c(minimum,min(flight_data[,colour_by[i]],na.rm = T))
+       maximum = c(maximum,max(flight_data[,colour_by[i]],na.rm = T))
+     }
+    }
+    minimum[minimum < 0] = 0.1
     #Plot the whole flight for each colour_by
-    #full_flight_list = list()
     pdf(paste(output_file_path,flight_no,"_","full_flight_plots.pdf",sep = ""))
     for (i in 1:length(colour_by)){
+      if(logplot[i])
+        colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = colourpoints)),"range")
+      else
+        colour_bar_values = rescaler(seq(1,colourpoints,1),"range")
       colour_col = colour_by[i]
-      #full_flight_list[[i]] = 
       ggp = ggmap(flight_map)+
           geom_path(data = flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3,inherit.aes = FALSE)+
-          scale_color_gradientn(colours = viridis::viridis(7))+
+          scale_color_gradientn(colours = cols,limits = c(0,maximum[i]),values = colour_bar_values)+
           ggtitle(paste(flight_no,"full_flight",colour_by[i],sep = " "))
         print(paste("Plotting ",trimws(colour_by[i],which = "right")," for all of ",flight_no,sep = ""))
         print(ggp)
@@ -73,26 +98,34 @@ plot_flight_legs = function(flight_data,
     dev.off()
   
     #Plot flight segments
-    if(plot_range == T){
+    if(plot_range){
       #select segment
       range_rows = which(flight_sum$range_event == 1)
  
       for (j in 1:length(range_rows)){
-        range_flight_list = list()
         range_flight_data = flight_data[(flight_data$date > flight_sum$start_time[range_rows[j]]) &
                                             (flight_data$date < flight_sum$end_time[range_rows[j]]),]
         #plot
-        for (i in 1:length(colour_by)){
-          colour_col = colour_by[i]
-          range_flight_list[[i]] = ggmap(flight_map)+
-            geom_path(data = range_flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3)+
-            scale_color_gradientn(colours = viridis::viridis(7))+
-            ggtitle(paste(flight_no,trimws(flight_sum$event[range_rows][j],"right"),colour_by[i],sep = " "))
-        }
         pdf(paste(output_file_path,flight_no,"_",trimws(flight_sum$event[range_rows][j],"right"),"_plots.pdf",sep = ""))
         for (i in 1:length(colour_by)){
-          print(range_flight_list[[i]])
-          print(paste("Plotting ",trimws(colour_by[i],which = "right")," for ",flight_sum$event[range_rows][j]," for ",flight_no,sep = ""))
+          if(logplot[i]){
+            colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = colourpoints)),"range")
+          }else{
+            colour_bar_values = rescaler(seq(1,colourpoints,1),"range")
+          }
+          if(!range_control)
+            maximum = max(range_flight_data[,colour_by[i]],na.rm = T)
+          
+          colour_col = colour_by[i]
+          ggp = ggmap(flight_map)+
+            geom_path(data = range_flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3)+
+            scale_color_gradientn(colours = cols,limits = c(0,maximum[i]),values = colour_bar_values)+
+            ggtitle(paste(flight_no,range_control,trimws(flight_sum$event[range_rows][j],"right"),colour_by[i],sep = " "))
+        
+          
+          print(ggp)
+          print(paste("Plotting ",trimws(colour_by[i],which = "right")," for ",
+                      trimws(flight_sum$event[range_rows][j],which = "right")," for ",flight_no,sep = ""))
         }
         dev.off()
       }
