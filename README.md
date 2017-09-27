@@ -85,6 +85,14 @@ Componenent of exp_day_comparison that handels day of week only
 **Experiment**  
 Componenent of exp_day_comparison that handels days only
 
+*FAAM_core_nox_merge*  
+**Data Handling**  
+Merges processed nox data into a faam core netcdf
+
+*faam_ncdf.to.csv*  
+**Data Handling**  
+Takes the NetCDF for FAAM flight data and returns the key inforamtion as a csv
+
 *find_ranges*
 **Data Handling**
 Used to return ranges of rows where a valve has switched from 0 to 1 or vice versa. Improves upon find_cal_range and find_zero_range
@@ -92,6 +100,10 @@ Used to return ranges of rows where a valve has switched from 0 to 1 or vice ver
 *flagdata*  
 **Data Handling**  
 Used to flag the data from the BT Tower
+
+*flight_range_subset*  
+**Data Handling**  
+Creates list of range events in a flight
 
 *get_DOY*
 **Data Handling**
@@ -125,9 +137,17 @@ Applies the rules required by data flags to data
 **Plotting**  
 Used to keep plot colours consistent
 
+*Plot Flight Legs*
+**Plotting**
+Creates plots of the flight and its sections cloured by supplied parameters
+
 *read.aircraft*
 **File Handling**
 Reads in an aircraft CSV and creates the UNIX_TS column used by aircraft_cal_flag 
+
+*read.faam_flight_sum*
+**File Handling**
+Reads in the FAAM flight summary
 
 *sub_all*  
 **Data Handling**  

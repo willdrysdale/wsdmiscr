@@ -1,3 +1,20 @@
+#' Plot flight legs
+#' 
+#' creates plots of the flight and its sections cloured by supplied parameters. date must be supllied as POSIXct, in column "date"
+#' 
+#' @param flight_data faam merge file
+#' @param flight_sum_path file path of flight summary
+#' @param plot_range T/F plot subsections of flight
+#' @param maptype string for getmap, toner
+#' @param output_file_path location to save plots
+#' @param flight_map supply a gg_map file to override the automatic map generation
+#' @param missing_flag data flag to convert to NA
+#' 
+#' @author W S Drysdale
+#' 
+#' @export
+
+
 plot_flight_legs = function(flight_data,
                             flight_sum_path,
                             plot_range = T,
@@ -17,8 +34,6 @@ plot_flight_legs = function(flight_data,
     
     #tidy and store lat longs
     flight_data$lat_gin[flight_data$lat_gin == 0] = NA
-    
-    flight_data$date = ymd_hms(flight_data$timestamp)
     
     max_lon = max(flight_data$lon_gin,na.rm = T)
     min_lon = min(flight_data$lon_gin,na.rm = T)
@@ -49,16 +64,11 @@ plot_flight_legs = function(flight_data,
       #full_flight_list[[i]] = 
       ggp = ggmap(flight_map)+
           geom_path(data = flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3,inherit.aes = FALSE)+
-          scale_color_gradientn(colours = rainbow(7))+
+          scale_color_gradientn(colours = viridis::viridis(7))+
           ggtitle(paste(flight_no,"full_flight",colour_by[i],sep = " "))
         print(paste("Plotting ",trimws(colour_by[i],which = "right")," for all of ",flight_no,sep = ""))
         print(ggp)
     }
- #   pdf(paste(output_file_path,flight_no,"_","full_flight_plots.pdf",sep = ""))
-  #  for (i in 1:length(colour_by)){
-#     print(full_flight_list[[i]])
-#     print(paste("Plotting ",trimws(colour_by[i],which = "right")," for all of ",flight_no,sep = ""))
-#    }
       
     dev.off()
   
@@ -76,7 +86,7 @@ plot_flight_legs = function(flight_data,
           colour_col = colour_by[i]
           range_flight_list[[i]] = ggmap(flight_map)+
             geom_path(data = range_flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3)+
-            scale_color_gradientn(colours = rainbow(7))+
+            scale_color_gradientn(colours = viridis::viridis(7))+
             ggtitle(paste(flight_no,trimws(flight_sum$event[range_rows][j],"right"),colour_by[i],sep = " "))
         }
         pdf(paste(output_file_path,flight_no,"_",trimws(flight_sum$event[range_rows][j],"right"),"_plots.pdf",sep = ""))

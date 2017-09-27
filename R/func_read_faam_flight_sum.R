@@ -5,6 +5,8 @@
 #' @param flight_sum_path file location of flight summary 
 #' 
 #' @author Will S. Drysdale
+#' 
+#' @export
 
 
 read.faam_flight_sum = function(flight_sum_path){
