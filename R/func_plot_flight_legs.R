@@ -7,9 +7,14 @@
 #' @param plot_range T/F plot subsections of flight
 #' @param maptype string for getmap, toner
 #' @param output_file_path location to save plots
+#' @param colour_by vector of cloums to colour by, defualt "nox_conc","o3_teco","alt_gin"
 #' @param flight_map supply a gg_map file to override the automatic map generation
 #' @param missing_flag data flag to convert to NA
 #' @param zoom adjust map zoom level
+#' @param logplot vector of equal length to colour_by in order should these be on log scales deafault (T,F,F)
+#' @param colourpoints how many points in the colour bar
+#' @param range_control default false, enable for colour bars to change between flight segments
+#' @param cube_helix defualt true, disable to use plasma colourbar
 #' 
 #' @author W S Drysdale
 #' 

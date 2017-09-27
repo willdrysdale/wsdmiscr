@@ -5,8 +5,10 @@
 \title{Plot flight legs}
 \usage{
 plot_flight_legs(flight_data, flight_sum_path, plot_range = T,
-  maptype = "toner", output_file_path, colour_by = c("nox_conc", "o3_teco",
-  "alt_gin"), flight_map, missing_flag, ...)
+  maptype = "toner", output_file_path = "plots/",
+  colour_by = c("nox_conc", "o3_teco", "alt_gin"), flight_map,
+  missing_flag = -9999, zoom = 8, logplot = c(T, F, F),
+  colourpoints = 10, range_control = T, cube_helix = T)
 }
 \arguments{
 \item{flight_data}{faam merge file}
@@ -19,9 +21,21 @@ plot_flight_legs(flight_data, flight_sum_path, plot_range = T,
 
 \item{output_file_path}{location to save plots}
 
+\item{colour_by}{vector of cloums to colour by, defualt "nox_conc","o3_teco","alt_gin"}
+
 \item{flight_map}{supply a gg_map file to override the automatic map generation}
 
 \item{missing_flag}{data flag to convert to NA}
+
+\item{zoom}{adjust map zoom level}
+
+\item{logplot}{vector of equal length to colour_by in order should these be on log scales deafault (T,F,F)}
+
+\item{colourpoints}{how many points in the colour bar}
+
+\item{range_control}{default false, enable for colour bars to change between flight segments}
+
+\item{cube_helix}{defualt true, disable to use plasma colourbar}
 }
 \description{
 creates plots of the flight and its sections cloured by supplied parameters. date must be supllied as POSIXct, in column "date"
