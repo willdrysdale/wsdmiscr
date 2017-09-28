@@ -11,7 +11,7 @@
 #' @author W S Drysdale
 
 
-faam_ndcf.to.csv = function(ncdf_filepath){
+read.faam_ncdf = function(ncdf_filepath){
   core_ncdf = nc_open(ncdf_filepath)
   #Strip date and flight id
   filename = core_ncdf$filename

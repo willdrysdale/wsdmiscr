@@ -89,12 +89,8 @@ Componenent of exp_day_comparison that handels days only
 **Data Handling**  
 Merges processed nox data into a faam core netcdf
 
-*faam_ncdf.to.csv*  
+*find_ranges*  
 **Data Handling**  
-Takes the NetCDF for FAAM flight data and returns the key inforamtion as a csv
-
-*find_ranges*
-**Data Handling**
 Used to return ranges of rows where a valve has switched from 0 to 1 or vice versa. Improves upon find_cal_range and find_zero_range
 
 *flagdata*  
@@ -105,8 +101,8 @@ Used to flag the data from the BT Tower
 **Data Handling**  
 Creates list of range events in a flight
 
-*get_DOY*
-**Data Handling**
+*get_DOY*  
+**Data Handling**  
 Returns DOY.decialday from a POSIXct date
 
 *load_BTT*  
@@ -125,8 +121,8 @@ Formats the BT Tower time series filename to the NCAS data archive format
 **Data Handling**  
 Fills in time series' gaps with date and blanks at specified intervals
 
-*process.aircraft*
-**Data Handling**
+*process.aircraft*  
+**Data Handling**  
 Reads in an AQD NOx aircraft file and runs aircraft_cal_flags, prodcuing quicklook and full outputs
 
 *process_BTT_flags*  
@@ -137,17 +133,21 @@ Applies the rules required by data flags to data
 **Plotting**  
 Used to keep plot colours consistent
 
-*Plot Flight Legs*
-**Plotting**
+*Plot Flight Legs*  
+**Plotting**  
 Creates plots of the flight and its sections cloured by supplied parameters
 
-*read.aircraft*
-**File Handling**
+*read.aircraft*  
+**File Handling**  
 Reads in an aircraft CSV and creates the UNIX_TS column used by aircraft_cal_flag 
 
-*read.faam_flight_sum*
-**File Handling**
+*read.faam_flight_sum*  
+**File Handling**  
 Reads in the FAAM flight summary
+
+*read.faam_ncdf*  
+**Data Handling**  
+Takes the NetCDF for FAAM flight data and returns the key inforamtion as a csv
 
 *sub_all*  
 **Data Handling**  
