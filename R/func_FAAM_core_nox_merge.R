@@ -11,7 +11,7 @@
 
 FAAM_core_nox_merge = function(ncdf_filepath,processed_nox){
   #Load the FAAM NetCDF
-  output_data = faam_ndcf.to.csv(ncdf_filepath)
+  output_data = read.faam_ncdf(ncdf_filepath)
   if("TheTime" %in% names(processed_nox) & !"date" %in% names(processed_nox)){
     processed_nox$date = parse_excel_date(processed_nox$TheTime)
     processed_nox = processed_nox[c(2,3,4,5)]
