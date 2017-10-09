@@ -83,7 +83,7 @@ plot_flight_legs = function(flight_data,
        maximum = c(maximum,max(flight_data[,colour_by[i]],na.rm = T))
      }
     }
-    minimum[minimum < 0] = 0.1
+    minimum[minimum <= 0] = 0.1
     #Plot the whole flight for each colour_by
     pdf(paste(output_file_path,flight_no,"_","full_flight_plots.pdf",sep = ""))
     for (i in 1:length(colour_by)){
