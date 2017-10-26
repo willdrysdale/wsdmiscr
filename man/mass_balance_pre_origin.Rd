@@ -33,4 +33,6 @@ Process a faam merge file ready for gridding in origin for mass balance. must ha
 }
 \author{
 Will S. Drysdale
+
+Beth Nelson
 }

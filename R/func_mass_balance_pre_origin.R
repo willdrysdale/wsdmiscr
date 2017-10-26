@@ -12,6 +12,7 @@
 #' @param pollutant_mass string or vector of strings containg pollutant mass. see faam_mixing_ratio_to_mgm3
 #' 
 #' @author Will S. Drysdale
+#' @author Beth Nelson
 #' 
 #' @return list containg the upwind and downwind data.frames
 #' 

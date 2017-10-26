@@ -23,4 +23,6 @@ Take a faam merge file and converts a species as a mixing ratio to mg/m3
 }
 \author{
 W S. Drysdale
+
+Beth Nelson
 }

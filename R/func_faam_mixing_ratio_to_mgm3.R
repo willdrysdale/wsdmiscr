@@ -12,6 +12,7 @@
 #' @export
 #' 
 #' @author W S. Drysdale
+#' @author Beth Nelson
 
 
 faam_mixing_ratio_to_mgm3 = function(df,unit,pollutant,pollutant_mass){

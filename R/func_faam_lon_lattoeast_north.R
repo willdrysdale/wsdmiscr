@@ -9,6 +9,7 @@
 #' @return original datafram with easting and northing columns
 #' 
 #' @author Will S. Drysdale
+#' @author Beth Nelson
 #' 
 #' @export
 

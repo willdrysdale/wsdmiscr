@@ -19,4 +19,6 @@ Takes the lat lon information from a faam merge file and adds easting and northi
 }
 \author{
 Will S. Drysdale
+
+Beth Nelson
 }
