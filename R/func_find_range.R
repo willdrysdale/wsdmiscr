@@ -10,7 +10,7 @@
 
 find_ranges = function(d,col){
   switch = d[,col]
-  switch[is.na(switch)] = 0
+  switch = na.locf(switch)
   
   ranges = rle(switch)
   rows = cumsum(ranges$lengths)
@@ -26,9 +26,9 @@ find_ranges = function(d,col){
   if(length(startrow) != length(endrow))
     startrow = startrow[1:length(startrow)-1]
   
-  if ("UNIX_TS" %in% names(d)){
-    start = d$UNIX_TS[startrow]
-    end = d$UNIX_TS[endrow]
+  if ("UNIX_TS_min" %in% names(d)){
+    start = d$UNIX_TS_min[startrow]
+    end = d$UNIX_TS_min[endrow]
   }
   if ("UNIX.TS" %in% names(d)){
     start = d$UNIX.TS[startrow]

@@ -16,6 +16,7 @@ date_from_decimal_day= function(decimal_day,date_origin){
   day = as.Date(DOY, origin = date_origin )
   time = chron::times(decimal)
   date = ymd_hms(paste(day,time))
+  date = date + 86400 #correct for date being one day early
   #return
   date
 }

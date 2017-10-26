@@ -1,5 +1,5 @@
 Package: wsdmiscr
-Version: 0.6.1
+Version: 0.6.2
 Date: 2017-04-07
 Title: Misc Time Series Management Functions
 Decription: Various functions for time series handling and data selection
@@ -17,5 +17,6 @@ Depends:
     viridis,
     ggmap,
     ggplot2,
-    reshape
+    reshape,
+    rgeos
 RoxygenNote: 6.0.1
