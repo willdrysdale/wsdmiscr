@@ -150,8 +150,12 @@ BTT_raw_data_processing = function(d,calibration_profile,extra_met){
   q<-0.62198*e/(press-0.37802*e)
   humidity <- q
   
-  fst_FD_mole_H2O_insitu <- humidity
-  fst_FD_mole_H2O_hut <- humidity
+  Md = 28.97
+  Mv = 18.02
+  mvmd = Mv / Md
+  
+  fst_FD_mole_H2O_insitu <- humidity / mvmd
+  fst_FD_mole_H2O_hut <- humidity / mvmd
   
   fst_FD_mole_NO1_insitu <- d$NO_Conc_adj * 1e-12
   fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj * 1e-12

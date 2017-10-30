@@ -4,7 +4,7 @@
 \alias{BTT_EP_raw_data_processing}
 \title{BTT_EP_raw_data_processing}
 \usage{
-BTT_EP_raw_data_processing(d, calibration_profile, extra_met)
+BTT_EP_raw_data_processing(d, calibration_profile, extra_met, mgm3 = F)
 }
 \arguments{
 \item{d}{Raw AQD Output}
@@ -12,6 +12,8 @@ BTT_EP_raw_data_processing(d, calibration_profile, extra_met)
 \item{calibration_profile}{profile produced by BTT_calibration_profile from 1 min crit files}
 
 \item{extra_met}{output of BTT_parse_1hz_met}
+
+\item{mgm3}{if True, return NO and NO2 and mgm3 rather than a mixing ratio}
 }
 \value{
 data.frame of the format to pass to Eddy Pro

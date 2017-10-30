@@ -4,6 +4,7 @@
 #' 
 #' @param d dataframe with data and time stamp stored as UNIX_TS or UNIX.TS
 #' @param col numerical value for column containg valve values
+#' @export
 #' 
 #' @return dataframe containing "start","startrow","end","endrow" 
 

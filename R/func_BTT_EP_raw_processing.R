@@ -7,6 +7,7 @@
 #' @param d Raw AQD Output
 #' @param calibration_profile profile produced by BTT_calibration_profile from 1 min crit files
 #' @param extra_met output of BTT_parse_1hz_met
+#' @param mgm3 if True, return NO and NO2 and mgm3 rather than a mixing ratio
 #' 
 #' @return data.frame of the format to pass to Eddy Pro
 #' 
@@ -15,7 +16,7 @@
 #' @author Will S. Drysdale
 
 
-BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met){
+BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met,mgm3 = F){
   
   #When Zero Valves are NA make them 0
   d$zero_valve_1[is.na(d$zero_valve_1)] = 0
@@ -33,6 +34,7 @@ BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met){
   d$NO2_Conc[d$NO2_Conc == Inf] = NA
   
   d$NO_Conc[d$NO_Conc == Inf] = NA
+  
   
   #Create a unix_timestamp
   d$UNIX_TS = as.numeric(waclr::parse_excel_date(d$TheTime))
@@ -126,28 +128,64 @@ BTT_EP_raw_data_processing = function(d,calibration_profile,extra_met){
   q<-0.62198*e/(press-0.37802*e)
   humidity <- q
   
-  fst_FD_mole_H2O_insitu <- humidity
-  fst_FD_mole_H2O_hut <- humidity
+  Md = 28.97
+  Mv = 18.02
+  mvmd = Mv / Md
   
-  fst_FD_mole_NO1_insitu <- d$NO_Conc_adj * 1e-3
-  fst_FD_mole_NO2_insitu <- d$NO2_Conc_adj * 1e-3
   
-  ns.data <- data.frame(
-    DOY,
-    UTC,
-    fst_u,
-    fst_v,
-    fst_w,
-    slow_Temp,
-    fst_SONIC_T,
-    slow_p,
-    fst_FD_mole_H2O_insitu,
-    fst_FD_mole_NO1_insitu,
-    fst_FD_mole_NO2_insitu,
-    fst_FD_mole_H2O_hut,
-    uls_z = rep(177,nrow(d)),
-    ABL = rep(1500,nrow(d))
-  )
+  fst_FD_mole_H2O_insitu <- humidity / mvmd
+  fst_FD_mole_H2O_hut <- humidity / mvmd
+  
+  fst_FD_mole_NO1_insitu <- (d$NO_Conc_adj * 1e-3)
+  fst_FD_mole_NO2_insitu <- (d$NO2_Conc_adj * 1e-3)
+  
+  if(mgm3){
+    #create presure and temperature with faam column headers for mix_ratio to mgm3 conversion
+    d$ps_rvsm = d$pressure
+    d$tat_di_r = d$slow_temp
+    d$NO_Conc_adj = d$NO_Conc_adj * 1e-3
+    d$NO2_Conc_adj = d$NO2_Conc_adj * 1e-3
+    fst_FD_mgm3_NO1 = wsdmiscr::faam_mixing_ratio_to_mgm3(d,"ppb","NO_Conc_adj",30006)
+    fst_FD_mgm3_NO2 = wsdmiscr::faam_mixing_ratio_to_mgm3(d,"ppb","NO2_Conc_adj",46005)
+    
+    ns.data <- data.frame(
+      DOY,
+      UTC,
+      fst_u,
+      fst_v,
+      fst_w,
+      slow_Temp,
+      fst_SONIC_T,
+      slow_p,
+      fst_FD_mole_H2O_insitu,
+      fst_FD_mgm3_NO1,
+      fst_FD_mgm3_NO2,
+      fst_FD_mole_H2O_hut,
+      uls_z = rep(177,nrow(d)),
+      ABL = rep(1500,nrow(d))
+    )
+    
+  }else{
+    
+    ns.data <- data.frame(
+      DOY,
+      UTC,
+      fst_u,
+      fst_v,
+      fst_w,
+      slow_Temp,
+      fst_SONIC_T,
+      slow_p,
+      fst_FD_mole_H2O_insitu,
+      fst_FD_mole_NO1_insitu,
+      fst_FD_mole_NO2_insitu,
+      fst_FD_mole_H2O_hut,
+      uls_z = rep(177,nrow(d)),
+      ABL = rep(1500,nrow(d))
+    )
+  }
+  
+  
   
   row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
   ns.data <- ns.data[!row.has.na,]
