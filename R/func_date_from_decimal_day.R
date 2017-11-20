@@ -9,14 +9,14 @@
 #' 
 #' @export
 
-date_from_decimal_day= function(decimal_day,date_origin){
+date_from_decimal_day = function(decimal_day,date_origin){
   DOY = floor(decimal_day)
   decimal = decimal_day - DOY
+  DOY = DOY-1 # as.Date uses zero indexing, therfore Jan 1st is day 0
   
   day = as.Date(DOY, origin = date_origin )
   time = chron::times(decimal)
   date = ymd_hms(paste(day,time))
-  date = date + 86400 #correct for date being one day early
   #return
   date
 }
