@@ -14,12 +14,10 @@
 #' 
 #' @return dataframe with QC flag column added
 
-applyflags = function(d,cols,flagnum){
-  d[,flagnum] = 1 #Flag all data as Good
-  d[,flagnum][d[,cols] < 1] = 2 #All data less than 1 ppb flagged as below LoD
-  d[,flagnum][d[,cols] < 0] = 3 #All data less than 0 ppb flagged as in zero range (thus bounding LoD flag)
-  d[,flagnum][d[,cols] < -1] = 4#All data less than -1 ppb flagged as erroneous (thus bounding zero range)
-  d[,flagnum][is.na(d[,cols])] = 0#All data that is NA flagged
+applyflags = function(d,cols,flagnum,LOD){
+  d[,flagnum] = 0 #Flag all data as Good
+  d[,flagnum][d[,cols] < LOD] = 1 #All data less than 1 ppb flagged as below LoD
+  d[,flagnum][is.na(d[,cols])] = 3#All data that is NA flagged
   #Return
   d
 }

@@ -10,10 +10,10 @@
 #' 
 #' @export
 
- flagdata = function(d,cols){
+flagdata = function(d,cols,LOD){
   for (i in 1:length(cols)){ #for columns specified (including one column)
-    d = flagcols(d,cols[i]) #perform flag process for each
+    d = flagcols(d,cols[i],LOD) #perform flag process for each
   }
   #Return
   d
- }
+}
