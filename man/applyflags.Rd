@@ -4,7 +4,7 @@
 \alias{applyflags}
 \title{Apply Flags}
 \usage{
-applyflags(d, cols, flagnum)
+applyflags(d, cols, flagnum, LOD)
 }
 \arguments{
 \item{d}{dataframe containing data to be flagged}

@@ -4,7 +4,7 @@
 \alias{flagdata}
 \title{Flag Data}
 \usage{
-flagdata(d, cols)
+flagdata(d, cols, LOD)
 }
 \arguments{
 \item{d}{dataframe containing data to be flagged}

@@ -4,7 +4,7 @@
 \alias{flagcols}
 \title{QC Flag a Column}
 \usage{
-flagcols(d, cols)
+flagcols(d, cols, LOD)
 }
 \arguments{
 \item{d}{dataframe containing data to be flagged}
