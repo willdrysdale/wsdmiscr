@@ -6,25 +6,29 @@
 \usage{
 reshape_pan(d, ecd)
 }
+\arguments{
+\item{d}{data frame of PAN data}
+
+\item{ecd}{either 1 or 2, depending on ECD channel}
+}
+\value{
+long PAN data
+}
 \description{
-Takes a dataframe of PAN data, which is in a pseudo wide format and \n
-reshapes it into long, based of know lags relative to the time stamp \n
-Input data should be in the form: \n
-1. Date (DMY) \n
-2. Time (HMS) \n
-... \n
-7. PAN1A (or PAN1B) \n
-8. PAN2A (or PAN2B) \n
-9. PAN3A (or PAN3B) \n
-10. PAN1A_ppb (or PAN1B_ppb) \n
-11. PAN2A_ppb (or PAN2B_ppb) \n
-12. PAN3A_ppb (or PAN3B_ppb) \n
- Columns 3 - 6 inclusive are not used but expected
- 
- @param d data frame of PAN data
- @param ecd either 1 or 2, depending on ECD channel
- 
- @return long PAN data
- 
- @author W S. Drysdale
+Takes a dataframe of PAN data, which is in a pseudo wide format and \cr
+reshapes it into long, based of know lags relative to the time stamp \cr
+Input data should be in the form: \cr
+1. Date (DMY) \cr
+2. Time (HMS) \cr
+... \cr
+7. PAN1A (or PAN1B) \cr
+8. PAN2A (or PAN2B) \cr
+9. PAN3A (or PAN3B) \cr
+10. PAN1A_ppb (or PAN1B_ppb) \cr
+11. PAN2A_ppb (or PAN2B_ppb) \cr
+12. PAN3A_ppb (or PAN3B_ppb) \cr
+Columns 3 - 6 inclusive are not used but expected
+}
+\author{
+W S. Drysdale
 }

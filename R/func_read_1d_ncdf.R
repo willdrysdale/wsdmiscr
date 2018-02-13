@@ -4,10 +4,12 @@
 #' 
 #' @param path path too ncdf
 #' @param var_names if only specific variables are required, supply a vector here
-#' @param dim_name name of dimention to read in by if dim_name is time, format is assumed to be seconds since 1970-01-01 \n
+#' @param dim_name name of dimention to read in by if dim_name is time, format is assumed to be seconds since 1970-01-01 \cr
 #' override with \code{origin}
 #' @param tz defaults to UTC
 #' @param origin defaults to 1970-01-01
+#' 
+#' @export
 
 
 read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "1970-01-01"){
@@ -27,6 +29,7 @@ read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "19
     temp_var = ncvar_get(nc,var)
     dim = cbind(dim,temp_var)
   }
+  names(dim)[2:ncol(dim)] = var_names
   #return
   dim
 }

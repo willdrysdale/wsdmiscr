@@ -12,7 +12,7 @@ read_1D_ncdf(path, var_names, dim_name = "time", tz = "UTC",
 
 \item{var_names}{if only specific variables are required, supply a vector here}
 
-\item{dim_name}{name of dimention to read in by if dim_name is time, format is assumed to be seconds since 1970-01-01 \n
+\item{dim_name}{name of dimention to read in by if dim_name is time, format is assumed to be seconds since 1970-01-01 \cr
 override with \code{origin}}
 
 \item{tz}{defaults to UTC}
