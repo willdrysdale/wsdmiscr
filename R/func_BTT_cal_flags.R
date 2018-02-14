@@ -7,8 +7,10 @@
 #' 
 
 BTT_cal_flags = function(d){
+  #clean con eff
+  d$NO2_ConEff[d$NO2_ConEff < 0 | d$NO2_ConEff > 1] = NA
   #Create Table of ranges where calibration valve is active
-  calranges = find_ranges(d,17)
+  calranges = find_ranges(d,18)
   
   #Initialise a new flag column 
   d$cal_flag = 0 
@@ -18,108 +20,31 @@ BTT_cal_flags = function(d){
   sens2 = mean(d$nom_sens_2,na.rm = T)
   ce = mean(d$nom_ce,na.rm = T)
   
-  #Initialise New Columns
-  
-  d$cal_obs = 1
-  d$ch1_sens_adj = sens1
-  d$ch2_sens_adj = sens2
-  d$no2_ce_adj = ce
-  
-  if (nrow(calranges) > 1){
-    #First instance of recalculating 
-    previous_cal_row = 1
-    new_cal_row = calranges$endrow[1]+1
-    inter_cal_range = new_cal_row - previous_cal_row
-    sens1_inc = (d$CH1_sens[new_cal_row]-sens1)/inter_cal_range
-    sens2_inc = (d$CH2_sens[new_cal_row]-sens2)/inter_cal_range
-    ce_inc = (d$NO2_ConEff[new_cal_row]-ce)/inter_cal_range
-    
-    d$cal_obs[previous_cal_row] = 1
-    d$ch1_sens_adj[previous_cal_row] = sens1
-    d$ch2_sens_adj[previous_cal_row] = sens2
-    d$no2_ce_adj[previous_cal_row] = ce
-    
-    range = (previous_cal_row+1):new_cal_row
-    
-    d$cal_obs[range] = seq(2:(length(range)+1))
-    d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
-    d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
-    d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
-    
-    
-    #Middle Intances of Recalculating
-    for (i in 2:nrow(calranges)){
-      previous_cal_row = new_cal_row
-      new_cal_row = calranges$endrow[i]+1
-      
-      sens1 = d$CH1_sens[previous_cal_row]
-      sens2 = d$CH2_sens[previous_cal_row]
-      ce = d$NO2_ConEff[previous_cal_row]
-      
-      inter_cal_range = new_cal_row - previous_cal_row
-      sens1_inc = (d$CH1_sens[new_cal_row]-sens1)/inter_cal_range
-      sens2_inc = (d$CH2_sens[new_cal_row]-sens2)/inter_cal_range
-      ce_inc = (d$NO2_ConEff[new_cal_row]-ce)/inter_cal_range
-      
-      d$cal_obs[previous_cal_row] = 1
-      d$ch1_sens_adj[previous_cal_row] = sens1
-      d$ch2_sens_adj[previous_cal_row] = sens2
-      d$no2_ce_adj[previous_cal_row] = ce
-      
-      range = (previous_cal_row+1):new_cal_row
-      
-      d$cal_obs[range] = seq(2:(length(range)+1))
-      d$cal_obs[range] = d$cal_obs[range]+1
-      d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
-      d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
-      d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
-    }
-    #}
-    #Final Instance of Recalculating
-    previous_cal_row = new_cal_row
-    range = previous_cal_row:nrow(d)
-    
-    d$cal_obs[range] = seq(2:(length(range)+1))
-    d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = d$ch1_sens_adj[previous_cal_row-1]
-    d$ch2_sens_adj[range] = d$ch2_sens_adj[previous_cal_row-1]
-    d$no2_ce_adj[range] = d$no2_ce_adj[previous_cal_row-1]
-  }else{
-    #Only one Calibration
-    #First instance of recalculating 
-    previous_cal_row = 1
-    new_cal_row = calranges$endrow[1]+1
-    inter_cal_range = new_cal_row - previous_cal_row
-    sens1_inc = (d$CH1_sens[new_cal_row]-sens1)/inter_cal_range
-    sens2_inc = (d$CH2_sens[new_cal_row]-sens2)/inter_cal_range
-    ce_inc = (d$NO2_ConEff[new_cal_row]-ce)/inter_cal_range
-    
-    d$cal_obs[previous_cal_row] = 1
-    d$ch1_sens_adj[previous_cal_row] = sens1
-    d$ch2_sens_adj[previous_cal_row] = sens2
-    d$no2_ce_adj[previous_cal_row] = ce
-    
-    range = (previous_cal_row+1):new_cal_row
-    
-    d$cal_obs[range] = seq(2:(length(range)+1))
-    d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = sens1+(sens1_inc*d$cal_obs[range])
-    d$ch2_sens_adj[range] = sens2+(sens2_inc*d$cal_obs[range])
-    d$no2_ce_adj[range] = ce+(ce_inc*d$cal_obs[range])
-    
-    #Single Calibration to end
-    previous_cal_row = new_cal_row
-    d$cal_obs[previous_cal_row] = 1
-    range = previous_cal_row:nrow(d)
-    
-    d$cal_obs[range] = seq(2:(length(range)+1))
-    d$cal_obs[range] = d$cal_obs[range]+1
-    d$ch1_sens_adj[range] = d$ch1_sens_adj[previous_cal_row-1]
-    d$ch2_sens_adj[range] = d$ch2_sens_adj[previous_cal_row-1]
-    d$no2_ce_adj[range] = d$no2_ce_adj[previous_cal_row-1]
-    
+  #popluate where the calibration factors change
+  d$ch1_sens_adj = NA
+  d$ch2_sens_adj = NA
+  d$no2_ce_adj = NA
+  for(i in 1:nrow(calranges)){
+    row = calranges$endrow[i]+1
+    d$ch1_sens_adj[row] = d$CH1_sens[row]
+    d$ch2_sens_adj[row] = d$CH2_sens[row]
+    d$no2_ce_adj[row] = d$NO2_ConEff[row]
   }
+  
+  d$ch1_sens_adj[1] = sens1
+  d$ch2_sens_adj[1] = sens2
+  d$no2_ce_adj[1] = ce
+  
+  
+  lastcal = calranges$endrow[nrow(calranges)]+1
+  d$ch1_sens_adj[lastcal:nrow(d)] = d$CH1_sens[lastcal]
+  d$ch2_sens_adj[lastcal:nrow(d)] = d$CH2_sens[lastcal]
+  d$no2_ce_adj[lastcal:nrow(d)] = d$nom_ce[lastcal]
+  
+  #linearly interpolate between calibrations
+  interp_col = c("ch1_sens_adj","ch2_sens_adj","no2_ce_adj")
+  for(var in interp_col)
+    d[,var] = na.approx(d[,var],maxgap = nrow(d))
   
   return(d)
 }
