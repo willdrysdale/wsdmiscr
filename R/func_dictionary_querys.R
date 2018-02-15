@@ -1,20 +1,20 @@
-#' Molecule Dictionary Query
-#' 
-#' Querys the molecule dictionary, mdq() is a shorthand wrapper fucntion
-#' 
-#' @param mol molecular formula of molecule to be queried
-#' @param property property of the molecule to be returned not required for "molecules" or "structure
-#' @param dictionary moleclar dictionary to use, defualt loaded by molecule_dictionary()
-#' 
-#' @return Corresponding value from molecule_dictionary
-#' 
-#' @author W S. Drysdale
-#' 
-#' @export
+##' Molecule Dictionary Query
+##' 
+##' Querys the molecule dictionary, mdq() is a shorthand wrapper fucntion
+##' 
+##' @param mol molecular formula of molecule to be queried
+##' @param property property of the molecule to be returned not required for "molecules" or "structure
+##' @param dictionary moleclar dictionary to use, defualt loaded by molecule_dictionary()
+##' 
+##' @return Corresponding value from molecule_dictionary
+##' 
+##' @author W S. Drysdale
+##' 
+##' @export
 
 
-mol_dict_query = function(mol = NULL,property = NULL,dictionary = molecule_dictionary()){
-  if(mol == "all")
+mol_dict_query = function(mol = NA,property = NA,dictionary = molecule_dictionary()){
+  if(mol[1] == "all")
     mol = names(dictionary)[3:length(dictionary)]
   if(is.character(mol))
     mol = tolower(mol)
@@ -47,26 +47,35 @@ mol_dict_query = function(mol = NULL,property = NULL,dictionary = molecule_dicti
       #return
       z
     }else{
-      if(length(mol) > length(property))
+      if(length(mol) > length(property)){
         z = apply(mol,1,function(x) dictionary[[c(x,property)]])
-      
-      if(length(property) > length(mol))
+        z = data.frame(mol,z)
+        names(z)[2] = property
+        }
+      if(length(property) > length(mol)){
         z = apply(property,1,function(x) dictionary[[c(mol,x)]])
+        z = data.frame(property,z)
+        names(z)[2] = mol
+        }
       #return
       z
     }
-      
-      
-        
-      #stop("Query many properties of 1 molecule or 1 property of many molecules - not both")
-    #So long as relationship is 1 to many or many to one, proceed
-    
-    
-    
   }
-  
-    
 }
+##' Molecule Dictionary Query
+##' 
+##' Querys the molecule dictionary, mdq() is a shorthand wrapper fucntion
+##' 
+##' @param mol molecular formula of molecule to be queried
+##' @param property property of the molecule to be returned not required for "molecules" or "structure
+##' @param dictionary moleclar dictionary to use, defualt loaded by molecule_dictionary()
+##' 
+##' @return Corresponding value from molecule_dictionary
+##' 
+##' @author W S. Drysdale
+##' 
+##' @export
+
 
 mdq = function(mol = NULL,property = NULL){
   mol_dict_query(mol,property,dictionary = molecule_dictionary())
