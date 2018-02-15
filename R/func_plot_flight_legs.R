@@ -12,9 +12,8 @@
 #' @param missing_flag data flag to convert to NA
 #' @param zoom adjust map zoom level
 #' @param logplot vector of equal length to colour_by in order should these be on log scales deafault (T,F,F)
-#' @param colourpoints how many points in the colour bar
 #' @param range_control default false, enable for colour bars to change between flight segments
-#' @param cube_helix defualt true, disable to use plasma colourbar
+#' @param cols colour bar info default viridisLite::plasma(10)
 #' 
 #' @author W S Drysdale
 #' 
@@ -31,16 +30,11 @@ plot_flight_legs = function(flight_data,
                             missing_flag = -9999,
                             zoom = 8,
                             logplot = c(T,F,F),
-                            colourpoints = 10,
                             range_control = T,
-                            cube_helix = T
+                            cols = viridisLite::plasma(10)
                             ){
     if(length(logplot) != length(colour_by))
       stop("Logplot and colour_by lengths differ")
-    if(cube_helix)
-      cols = rje::cubeHelix(colourpoints,start = pi*2)
-    else
-      cols = viridis::plasma(colourpoints)
     #Read in flight summary and store flight number
     flight_sum = read.faam_flight_sum(flight_sum_path)
     flight_no = flight_sum$flight_no[1]
@@ -88,9 +82,9 @@ plot_flight_legs = function(flight_data,
     pdf(paste(output_file_path,flight_no,"_","full_flight_plots.pdf",sep = ""))
     for (i in 1:length(colour_by)){
       if(logplot[i])
-        colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = colourpoints)),"range")
+        colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = length(cols)),"range"))
       else
-        colour_bar_values = rescaler(seq(1,colourpoints,1),"range")
+        colour_bar_values = rescaler(seq(1,length(cols),1),"range")
       colour_col = colour_by[i]
       ggp = ggmap(flight_map)+
           geom_path(data = flight_data,aes_string(x = "lon_gin",y = "lat_gin",colour = colour_col),size = 3,inherit.aes = FALSE)+
@@ -114,9 +108,9 @@ plot_flight_legs = function(flight_data,
         pdf(paste(output_file_path,flight_no,"_",trimws(flight_sum$event[range_rows][j],"right"),"_plots.pdf",sep = ""))
         for (i in 1:length(colour_by)){
           if(logplot[i]){
-            colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = colourpoints)),"range")
+            colour_bar_values = rescaler(exp(seq(log(minimum[i]), log(maximum[i]), length = length(cols))),"range")
           }else{
-            colour_bar_values = rescaler(seq(1,colourpoints,1),"range")
+            colour_bar_values = rescaler(seq(1,length(cols),1),"range")
           }
           if(!range_control)
             maximum = max(range_flight_data[,colour_by[i]],na.rm = T)

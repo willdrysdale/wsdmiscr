@@ -4,7 +4,7 @@
 \alias{BTT_cal_clean}
 \title{BT Tower Calibration Clean}
 \usage{
-BTT_cal_clean(d, percent_drift)
+BTT_cal_clean(d, upper_stdev_scalar = 1.5, lower_stdev_scalar = 0.5)
 }
 \arguments{
 \item{d}{dataframe of bound crit files}

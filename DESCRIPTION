@@ -13,12 +13,11 @@ Depends:
     chron,
     sp,
     stringr,
-    rje,
-    viridis,
     ggmap,
     ggplot2,
     reshape,
     maptools,
     rgeos,
-    magrittr
+    magrittr,
+    viridisLite
 RoxygenNote: 6.0.1
