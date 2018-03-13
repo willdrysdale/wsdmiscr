@@ -43,12 +43,11 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   fst_w = d$w..m.s.
   
   #Temperature
-  d$temp = convert_temp_sos_c_2(d$Speed.of.sound)
-  slow_Temp = d$temp
-  fst_SONIC_T <- d$temp
+  slow_Temp = d$Speed.of.sound #use temp corrected file (degrees C)
+  fst_SONIC_T <- d$Speed.of.sound
   
   #Pressure
-  slow_p <- 1013.25 * ((1 - ((0.0065 * 177) / (d$temp + (0.0065 * 177) + 273.15)) )^5.257) ## tower pressure in hPa
+  slow_p <- 1013.25 * ((1 - ((0.0065 * 177) / (d$Speed.of.sound + (0.0065 * 177) + 273.15)) )^5.257) ## tower pressure in hPa
   slow_p <- slow_p * 100
   
   #RH and specific humidity 
@@ -72,8 +71,8 @@ BTT_CEH_data_reprocess = function(d,header,filename){
   
   fst_FD_mole_H2O_hut <- fst_FD_mole_H2O_insitu
   
-  fst_FD_mole_NO1_insitu <- (d$NO..ppb.) * 1e-9
-  fst_FD_mole_NO2_insitu <- (d$NO2..ppb.) * 1e-9
+  fst_FD_mole_NO1_ppb <- (d$NO..ppb.)# * 1e-9
+  fst_FD_mole_NO2_ppb <- (d$NO2..ppb.)# * 1e-9
   
   ns.data <- data.frame(
     DOY,
@@ -85,19 +84,16 @@ BTT_CEH_data_reprocess = function(d,header,filename){
     fst_SONIC_T,
     slow_p,
     fst_FD_mole_H2O_insitu,
-    fst_FD_mole_NO1_insitu,
-    fst_FD_mole_NO2_insitu,
+    fst_FD_mole_NO1_ppb,
+    fst_FD_mole_NO2_ppb,
     fst_FD_mole_H2O_hut,
     uls_z = rep(177,nrow(d)),
     ABL = rep(1500,nrow(d))
   )
   
-  ns.data$fst_FD_mole_NO1_insitu[ns.data$fst_FD_mole_NO1_insitu < 0] = NA
-  ns.data$fst_FD_mole_NO2_insitu[ns.data$fst_FD_mole_NO2_insitu < 0] = NA
+  ns.data$fst_FD_mole_NO1_ppb[ns.data$fst_FD_mole_NO1_ppb < 0] = NA
+  ns.data$fst_FD_mole_NO2_ppb[ns.data$fst_FD_mole_NO2_ppb < 0] = NA
   ns.data$X = 1:nrow(ns.data)
-  
-  row.has.na <- apply(ns.data, 1, function(x){any(is.na(x))})
-  ns.data <- ns.data[!row.has.na,]
   
   
   

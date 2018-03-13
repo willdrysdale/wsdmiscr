@@ -4,7 +4,7 @@
 \alias{date_from_decimal_day}
 \title{date_from_decimal_day}
 \usage{
-date_from_decimal_day(decimal_day, date_origin)
+date_from_decimal_day(decimal_day, date_origin, tz = "UTC")
 }
 \arguments{
 \item{decimal_day}{date stored as DOY.decimalday}

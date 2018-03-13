@@ -30,6 +30,8 @@ read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "19
     dim = cbind(dim,temp_var)
   }
   names(dim)[2:ncol(dim)] = var_names
+  #close ncdf
+  nc_close(nc)
   #return
   dim
 }
