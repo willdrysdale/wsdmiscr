@@ -4,7 +4,9 @@
 \alias{create_nasa_ames_1D}
 \title{Create NASA Ames 1D}
 \usage{
-create_nasa_ames_1D()
+create_nasa_ames_1D(d, ONAME, ORG, SNAME, MNAME, IVOL = 1, NVOL = 1, DATE,
+  DX, XNAME, X_col = 1, NV_col, VSCALn = NULL, VMISSn = NULL, VNAMEn,
+  SCOMn = NULL, NCOMn = NULL, file, col.names = T)
 }
 \arguments{
 \item{d}{data frame of data to have header attached, column names should be simple, no need to match long names in header}
@@ -31,19 +33,24 @@ create_nasa_ames_1D()
 
 \item{NV_col}{interger or vector of integers corresponding to column number containing primary variables}
 
-\item{VSCALn}{interger or vector of integers corresponding to scaling factors of primary variables}
+\item{VSCALn}{interger or vector of integers corresponding to scaling factors of primary variables, default all 1}
 
-\item{VMISSn}{interger or vector of integers corresponding to missing values of primary variables}
+\item{VMISSn}{interger or vector of integers corresponding to missing values of primary variables, default all 99999}
 
 \item{VNAMEn}{string or vector of string containing long names of primary variables, each should not exceed 132 characters}
 
 \item{SCOMn}{string or vector of string containing each special comment line}
 
 \item{NCOMn}{string or vector of string containing each normal comment line}
+
+\item{file}{save file here}
+
+\item{col.names}{include the column headers on the data table T/F}
 }
 \description{
 {
 Creates a 1 Dimentional NASA Ames file in the format \cr
+\cr
 \code{HL FFI} Header Length -  File Format Index (supports 1001 only) \cr
 \code{ONAME} Name of File Originator \cr
 \code{ORG} Name of Organisation \cr

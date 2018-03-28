@@ -19,9 +19,7 @@ dataframe with QC flag column added
 \description{
 Adds a column with QC flags based on the paramaters listed:
 Flag Concentration data:
-0 data not used - Used when value is NA
-1 good data - the default unless specific paramaters are met
-2 data below limit of detection 0-1 ppb
-3 data less than zero but within zero range -1-0 ppb
-4 data less than -1 ppb, to be considered erroneous and should be converted to NA manually
+0 good data - the default unless specific paramaters are met
+1 data below limit of detection 0-LOD
+3 NA
 }
