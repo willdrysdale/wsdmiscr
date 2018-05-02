@@ -6,8 +6,8 @@
 #' @param mask defining where date is in string
 #' @param tz timezone code to pass to \code{ymd_hm()}
 #' 
-#' @example \code{mask_extract_date(string = "NOx_5Hz_170301_12000_170301_000002_cor_temp_pre_process_complete.csv", \cr
-#' mask = ""NOx_5Hz_yymmdd_HHMM0_??????_??????_cor_temp_pre_process_complete.csv"")}
+#' @examples \code{mask_extract_date(string = "NOx_5Hz_170301_12000_170301_000002_cor_temp_pre_process_complete.csv", \cr
+#' mask = NOx_5Hz_yymmdd_HHMM0_??????_??????_cor_temp_pre_process_complete.csv")}
 #' 
 #' @author W. S. Drysdale
 #' 

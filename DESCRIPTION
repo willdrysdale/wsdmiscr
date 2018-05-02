@@ -19,5 +19,6 @@ Depends:
     maptools,
     rgeos,
     magrittr,
-    viridisLite
+    viridisLite,
+	MethComp
 RoxygenNote: 6.0.1

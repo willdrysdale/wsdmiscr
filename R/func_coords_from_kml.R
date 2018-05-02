@@ -3,6 +3,7 @@
 #' Reads coordinates into a dataframe from a hysplit kml file
 #' 
 #' @param kml_path location of kml file
+#' @export
 
 coords_from_kml = function(kml_path){
   #Read KML coordinates
