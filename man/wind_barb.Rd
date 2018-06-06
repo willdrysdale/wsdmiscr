@@ -4,7 +4,7 @@
 \alias{wind_barb}
 \title{Create Wind Barbs}
 \usage{
-wind_barb(x, mlength = 0.1, wblength = 0.025)
+wind_barb(x, mlength = 0.1, wblength = 0.025, col = "black", lwd = 1)
 }
 \arguments{
 \item{x}{windspeed in knots}
@@ -14,5 +14,6 @@ wind_barb(x, mlength = 0.1, wblength = 0.025)
 \item{wblength}{Controls Spar/Flag length}
 }
 \description{
-Creates a wind bard based on windspeed in knots taken from StackOverflow https://stackoverflow.com/questions/32705013/plot-wind-barb-in-r
+Creates a wind bard based on windspeed in meters per second \cr
+taken from StackOverflow https://stackoverflow.com/questions/32705013/plot-wind-barb-in-r and edited for ms-1
 }
