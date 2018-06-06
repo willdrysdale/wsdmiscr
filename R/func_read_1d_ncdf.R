@@ -25,11 +25,16 @@ read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "19
   dim = data.frame(dim)
   names(dim) = dim_name
   #For each variable
+  var_names2 = c()
   for (var in var_names){
     temp_var = ncvar_get(nc,var)
-    dim = cbind(dim,temp_var)
+    if(nrow(temp_var) == nrow(dim)){
+      dim = cbind(dim,temp_var)
+      var_names2 = c(var_names2,var)
+    }
+      
   }
-  names(dim)[2:ncol(dim)] = var_names
+  names(dim)[2:ncol(dim)] = var_names2
   #close ncdf
   nc_close(nc)
   #return
