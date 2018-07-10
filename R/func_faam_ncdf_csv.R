@@ -33,9 +33,7 @@ read.faam_ncdf = function(ncdf_filepath){
   )
   
   #Select variables to merge from core_ncdf
-  selected_vars = c("ALT_GIN","BSC_BLUU","BSC_GRNU","BSC_REDU","CO_AERO","CPC_CNTS","HGT_RADR","LAT_GIN","LON_GIN",
-                    "O3_TECO","PS_RVSM","TAT_DI_R","TDEW_GE","TSC_BLUU","TSC_GRNU","TSC_REDU","U_C","U_NOTURB",
-                    "V_C","V_NOTURB","W_C","WOW_IND")
+  selected_vars = names(core_ncdf$var)
   
   for (i in 1:length(selected_vars)){
     variable = as.numeric(ncdf4::ncvar_get(core_ncdf,selected_vars[i]))

@@ -19,7 +19,17 @@ read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "19
   if(missing(var_names))
     var_names = names(nc$var)
   #Load Dimention
-  dim = ncvar_get(nc,dim_name)
+  
+  dim = tryCatch({
+    ncvar_get(nc,dim_name)},
+    error = function(e){
+      "dim_load_error"
+    })
+  
+  if(dim == "dim_load_error"){
+    dim =  nc$var[[1]][["dim"]][[1]]$vals
+  }
+  
   if(dim_name == "time")
     dim = as.POSIXct(dim,tz = tz,origin = origin)
   dim = data.frame(dim)
@@ -32,9 +42,11 @@ read_1D_ncdf = function(path,var_names,dim_name = "time",tz = "UTC",origin = "19
       dim = cbind(dim,temp_var)
       var_names2 = c(var_names2,var)
     }
-      
   }
   names(dim)[2:ncol(dim)] = var_names2
+
+  
+  
   #close ncdf
   nc_close(nc)
   #return
