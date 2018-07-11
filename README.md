@@ -17,29 +17,33 @@ Takes Aircraft NOx (AQD) and recalculates concentration data from in flight cali
 **Data Handling**  
 Used for comparing GC runs,or other data with a start and end time, to a time series of Met data or other continuous data
 
-*BTT_calibration_profile*
-**Data Handling**
-Produces a profile of the corrected calibration paramaters from the BTT AQD NOx instrument at a 1 min average
+*%b%*  
+**Data Handling**  
+Between Operator, returns logical comparison of numerical lhs to a numerical pair on rhs. 
 
-*BTT_raw_data_processing*
-**Data Handling**
-Converts the BTT AQD NOx output into a file ready for use in custom EC code
+*BTT_calibration_profile*  
+**Data Handling**  
+Produces a profile of the corrected calibration paramaters from the BTT AQD NOx instrument at a 1 min average  
 
-*CEH_data_reprocess*
-**Data Handling**
-Alternative preprocess script to supply the 2012-13 data to new flux code.
+*BTT_raw_data_processing*  
+**Data Handling**  
+Converts the BTT AQD NOx output into a file ready for use in custom EC code  
 
-*BTT_EP_raw_data_processing*
-**Data Handling**
-Converts the BTT AQD NOx output into a file ready for use in Eddy Pro
+*CEH_data_reprocess*  
+**Data Handling**  
+Alternative preprocess script to supply the 2012-13 data to new flux code.  
 
-*BTT_parse_1hz_met*
-**Data Handling**
-Processed the 1Hz met data from BTT met station into 1 min data for use in both raw_data_processing functions
+*BTT_EP_raw_data_processing*  
+**Data Handling**  
+Converts the BTT AQD NOx output into a file ready for use in Eddy Pro  
+
+*BTT_parse_1hz_met*  
+**Data Handling**  
+Processed the 1Hz met data from BTT met station into 1 min data for use in both raw_data_processing functions  
 
 *bt_fastnox_param_monitor*  
 **Data Handling**  
-Produces a quick monitor file from the AQD NOx insturment at the BT Tower
+Produces a quick monitor file from the AQD NOx insturment at the BT Tower  
 
 *btnox_adddata*  
 **Data Handling**  
@@ -105,6 +109,10 @@ Creates list of range events in a flight
 **Data Handling**  
 Returns DOY.decialday from a POSIXct date
 
+*length_of_lat(lon)*  
+**Data Handling**  
+For a given latitude in degrees, return the length of 1 degree lat(lon)
+
 *load_BTT*  
 **Data Handling**  
 loads timeseries into the global enviroment and combines it with met data, from a folder specifing in the btconfig file
@@ -112,6 +120,10 @@ loads timeseries into the global enviroment and combines it with met data, from 
 *massPlot*  
 **Plotting**  
 Produces a variety of rough plots from a data series 
+
+*mol_dict_query*
+**Chemistry**
+Querey a small database of molecules relevant to atmospheric chemistry for simple parameters such as mol weight, \code{mdq()} is a wrapper for this
 
 *ncas_filename*  
 **Data Handling**  
@@ -136,6 +148,10 @@ Used to keep plot colours consistent
 *Plot Flight Legs*  
 **Plotting**  
 Creates plots of the flight and its sections cloured by supplied parameters
+
+*read_1D_ncdf*  
+**File Handling**  
+Quickly reads data from a 1D netcdf
 
 *read.aircraft*  
 **File Handling**  

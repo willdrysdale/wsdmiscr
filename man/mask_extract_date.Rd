@@ -11,7 +11,7 @@ mask_extract_date(string, mask, tz = "UTC")
 
 \item{mask}{defining where date is in string}
 
-\item{tz}{timezone code to pass to \code{ymd_hm()}}
+\item{tz}{timezone code to pass to ymd_hm}
 }
 \description{
 By specifiic year = yy or yyyy, month = mm, day = dd, hour = HH, month = MM
