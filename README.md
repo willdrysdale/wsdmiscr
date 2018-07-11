@@ -1,4 +1,4 @@
-An R package to handle instrument data files and to produce plots in the openair package
+Various functions supporting data handling in an atmospheric chemistry PhD
 
 To install: 
 
