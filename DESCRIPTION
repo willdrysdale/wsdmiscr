@@ -1,6 +1,6 @@
 Package: wsdmiscr
-Version: 0.6.6
-Date: 2018-07-11
+Version: 0.7.0
+Date: 2018-07-25
 Title: wsdmiscr
 Decription: Various functions supporting data handling in an atmospheric chemistry PhD
 Author: Will S Drysdale
@@ -20,5 +20,6 @@ Depends:
     rgeos,
     magrittr,
     viridisLite,
-    MethComp
+    MethComp,
+    ncdf4
 RoxygenNote: 6.0.1

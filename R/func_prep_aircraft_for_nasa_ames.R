@@ -8,6 +8,8 @@
 #' @param date_col which column contains the datetime info
 #' @param date_parse function to transform the current date into a POSIXct
 #' @param origin does date_parse require an origin? include it here
+#' 
+#' @export
 
 prep_aircraft_final_for_nasa_ames = function(d_final,
                                              missing_flag = 99999,
