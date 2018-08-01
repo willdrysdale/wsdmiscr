@@ -11,7 +11,7 @@
 
 find_ranges = function(d,col){
   switch = d[,col]
-  switch = na.locf(switch)
+  switch = na.locf(switch,xout = 1:length(switch))
   
   ranges = rle(switch)
   rows = cumsum(ranges$lengths)

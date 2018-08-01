@@ -35,9 +35,9 @@ faam_mixing_ratio_to_mgm3 = function(df,unit,pollutant,pollutant_mass){
   data$molpervol = data[,"ps_rvsm"]/(gas_constant*data[,"tat_di_r"])
   
   #conversion factor
-  data$molpervol = (data$molpervol*avagadro_constant)/1e9
+  data$molpervol = data$molpervol/1e9
   
-  data$mgm3 = (data$molpervol*data[,pollutant])/avagadro_constant
+  data$mgm3 = (data$molpervol*data[,pollutant])
   
   data$mgm3 = data$mgm3*pollutant_mass
   
