@@ -14,6 +14,19 @@
 
 
 mol_dict_query = function(mol = NA,property = NA,dictionary = molecule_dictionary()){
+  
+  #alias for co
+  if(tolower(mol) == c("co_aero"))
+    mol = "co"
+  #alias for nox
+  if(tolower(mol) %in% c("nox_conc","nox_conc_adj"))
+    mol = "nox"
+  if(tolower(mol) %in% c("no2_conc","no2_conc_adj"))
+    mol = "no2"
+  if(tolower(mol) %in% c("no_conc","no_conc_adj"))
+    mol = "no"
+  
+  
   if(mol[1] == "all")
     mol = names(dictionary)[3:length(dictionary)]
   if(is.character(mol))
