@@ -15,6 +15,8 @@
 #' @author W. S. Drysdale
 
 ggwindRose = function(d,ws = "ws",wd = "wd",breaks = 16,nbin = 5,col = NULL,group = NULL){
+  deg2rad <- function(deg) {(deg * pi) / (180)}
+  
   group_call = substitute(group)
   
   if(!is.null(col)){
