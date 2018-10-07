@@ -5,7 +5,7 @@
 #' @param fp footprint matrix
 #' @param inv inventory as a projected raster object
 #' @param loc c(lat,long) coordinates for the center of the footprint matrix
-#' @param full_output default false, when true a spatial points dataframe of the inventory values and footprint are returned
+#' @param rescale default false, rescale total footprint sum to 1
 #' 
 #' @return The sum of the inventory weighted by the footprint
 #' 
@@ -13,11 +13,15 @@
 #' 
 #' @author W S Drysdale
 
-footprint_inventory_extract = function(fp,inv,loc,full_output = F){
-  fp = fp %>% rotate() %>% melt()
+footprint_inventory_extract = function(fp,inv,loc,full_output = F,rescale = F){
+  fp = fp %>% melt()
   grid_size = mean(c(max(fp$X1),max(fp$X2)))
   fp$X1 = fp$X1-(max(fp$X1)/2)
   fp$X2 = fp$X2-(max(fp$X2)/2)
+  if(rescale){
+    fct = 1/sum(fp$value,na.rm = T)
+    fp$value = fp$value*fct
+  }
   
   fp$lat = ((1/length_of_lat(loc[1]))*grid_size*fp$X2)+loc[1]
   fp$lon = ((1/length_of_long(loc[1]))*grid_size*fp$X1)+loc[2]

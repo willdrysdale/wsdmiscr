@@ -4,7 +4,7 @@
 \alias{footprint_inventory_extract}
 \title{Footprint Inventory Extract}
 \usage{
-footprint_inventory_extract(fp, inv, loc, full_output = F)
+footprint_inventory_extract(fp, inv, loc, full_output = F, rescale = F)
 }
 \arguments{
 \item{fp}{footprint matrix}
@@ -13,7 +13,7 @@ footprint_inventory_extract(fp, inv, loc, full_output = F)
 
 \item{loc}{c(lat,long) coordinates for the center of the footprint matrix}
 
-\item{full_output}{default false, when true a spatial points dataframe of the inventory values and footprint are returned}
+\item{rescale}{default false, rescale total footprint sum to 1}
 }
 \value{
 The sum of the inventory weighted by the footprint
