@@ -14,7 +14,8 @@
 #' @author W S Drysdale
 
 footprint_inventory_extract = function(fp,inv,loc,full_output = F,rescale = F){
-  fp = fp %>% melt()
+  rotate = function(x) t(apply(x, 2, rev))
+  fp = fp %>% rotate %>%  melt()
   grid_size = mean(c(max(fp$X1),max(fp$X2)))
   fp$X1 = fp$X1-(max(fp$X1)/2)
   fp$X2 = fp$X2-(max(fp$X2)/2)
