@@ -12,7 +12,7 @@
 #' 
 #' @export 
 
-read.e4r = function(file_path_to_EC,grp,dfdd = "2017-01-01",dur = 3600,round = "hour"){
+read.e4r = function(file_path_to_EC,grp,dfdd = "2017-01-01",dur = 3600,round = "hour",tz = "UTC"){
   mn = read.csv(paste0(file_path_to_EC,"_mn.csv"))
   err = read.csv(paste0(file_path_to_EC,"_erro.csv"))
   st = read.csv(paste0(file_path_to_EC,"_stat.csv"))
@@ -22,7 +22,7 @@ read.e4r = function(file_path_to_EC,grp,dfdd = "2017-01-01",dur = 3600,round = "
   
   c = cbind(mn,err,st,sd)
   names(c) %<>% paste0("_",grp)
-  c$date = wsdmiscr::date_from_decimal_day(c[,c(paste0("DOY_",grp))],dfdd) %>% -(dur/2) %>% round_date(round)
+  c$date = wsdmiscr::date_from_decimal_day(c[,c(paste0("DOY_",grp))],dfdd,tz = tz) %>% -(dur/2) %>% round_date(round)
   
   c2 = c
   c2 %<>% wsdmiscr::pad_time_series(dur)
