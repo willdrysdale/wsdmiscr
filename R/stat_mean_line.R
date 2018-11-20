@@ -1,11 +1,11 @@
-#' stat_mean_line
-#' 
-#' Plots a mean of all data in the facet in ggplot, taken from here https://stackoverflow.com/questions/46327431/
-#' 
-#' @param x
-#' @param y
-#' 
-#' @export
+##' @name stat_mean_line
+##' 
+##' @title Stat Mean Line
+##' 
+##' @rdname StatMeanLine
+##' @description Plots a mean of all data in the facet in ggplot, taken from here https://stackoverflow.com/questions/46327431/
+##' 
+##' @export
 
 StatMeanLine <- ggproto("StatMeanLine", Stat,
                         compute_group = function(data, scales) {
@@ -13,7 +13,12 @@ StatMeanLine <- ggproto("StatMeanLine", Stat,
                         },
                         required_aes = c("x", "y")
 )
-
+##' @rdname stat_mean_line
+##' @title Stat Mean Line
+##' @description Plots a mean of all data in the facet in ggplot, taken from here https://stackoverflow.com/questions/46327431/
+##' @param x x
+##' @param y y
+##' @export
 
 stat_mean_line <- function(mapping = NULL, data = NULL, geom = "hline",
                            position = "identity", na.rm = FALSE, show.legend = NA, 
