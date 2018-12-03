@@ -5,7 +5,7 @@
 \title{Read eddy4R}
 \usage{
 read.e4r(file_path_to_EC, grp, dfdd = "2017-01-01", dur = 3600,
-  round = "hour")
+  round = "hour", tz = "UTC")
 }
 \arguments{
 \item{file_path_to_EC}{folder containing eddy4r output}
