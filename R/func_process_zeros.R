@@ -10,6 +10,8 @@
 #' @param trim_end trim a number of records from the end of the state change
 #' @param f function uses to calculate the statistic. Default median
 #' @param ... additional arguments to pass to f
+#' 
+#' @export
 
 process_zeros = function(df,
                          zero_flag = c("zero_valve_1","zero_valve_2"),
