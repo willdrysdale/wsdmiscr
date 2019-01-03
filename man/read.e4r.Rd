@@ -5,7 +5,8 @@
 \title{Read eddy4R}
 \usage{
 read.e4r(file_path_to_EC, grp, dfdd = "2017-01-01", dur = 3600,
-  round = "hour", tz = "UTC")
+  round = "hour", tz = "UTC", output = c("list", "c", "c2")[1],
+  suffix = c("erro", "stat", "sd"))
 }
 \arguments{
 \item{file_path_to_EC}{folder containing eddy4r output}
@@ -17,10 +18,17 @@ read.e4r(file_path_to_EC, grp, dfdd = "2017-01-01", dur = 3600,
 \item{dur}{flux aggregation period in seconds}
 
 \item{round}{sensible value to round the flux aggregation period to}
+
+\item{output}{type of output required. c has the group determined in the column header, c2 has a separate group column, list is a list of both}
+
+\item{suffix}{which e4r file suffixes are to be read in, default as \code{c("erro","sd","st")}. "mn" is always read}
 }
 \value{
-A data.frame containing the bound mean, error, stationarity and standard deviation files. With the timestamp adjusted to the begining of the period
+A list or data.frame, depending on \code{output} containing the mean, bound with any other files defined in \code{suffix}. With the timestamp adjusted to the begining of the period
 }
 \description{
-Reads the eddy4r output of Will's branch as of 18/11/20
+Reads the eddy4r output of Will's branch as of 2019/01/03
+}
+\author{
+W. S. Drysdale
 }
