@@ -62,7 +62,7 @@ ggwindRose = function(d,ws = "ws",wd = "wd",breaks = 16,nbin = 5,col = NULL,grou
           panel.grid.minor = element_line(colour = "black"),
           axis.ticks.y = element_blank(),
           axis.text.x = element_text(colour = "black",size = rel(2)),
-          plot.margin=unit(c(0.1,0,0,0),"cm")
+          plot.margin = ggplot2::unit(c(0.1,0,0,0),"cm")
     )
   
   if(!is.null(group))
