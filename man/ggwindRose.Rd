@@ -4,8 +4,8 @@
 \alias{ggwindRose}
 \title{Wind Rose (ggplot2)}
 \usage{
-ggwindRose(d, ws = "ws", wd = "wd", breaks = 16, nbin = 5, col = NULL,
-  group = NULL)
+ggwindRose(d, ws = "ws", wd = "wd", breaks = 16, nbin = 5,
+  col = NULL, group = NULL)
 }
 \arguments{
 \item{d}{data.frame containing winddata}

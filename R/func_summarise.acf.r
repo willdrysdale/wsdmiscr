@@ -2,10 +2,10 @@
 #' 
 #' Summarise the ACF output by a function (e.g median) per scalar
 #' 
-#' @param acf
-#' @param .f
-#' @param freq
-#' @param ...
+#' @param acf acf output from e4r
+#' @param .f function to summarise by, default mean
+#' @param freq data frequency
+#' @param ... additonal arguments to pass to .f
 #' 
 #' @author W. S. Drysdale
 #' 

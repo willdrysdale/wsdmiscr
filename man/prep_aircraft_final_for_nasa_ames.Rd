@@ -5,8 +5,8 @@
 \title{Prepare Aircraft Final for NASA Ames}
 \usage{
 prep_aircraft_final_for_nasa_ames(d_final, missing_flag = 99999,
-  col_names = NULL, date_col = 1, date_parse = waclr::parse_excel_date,
-  origin = NULL)
+  col_names = NULL, date_col = 1,
+  date_parse = waclr::parse_excel_date, origin = NULL)
 }
 \arguments{
 \item{d_final}{_final output of \code{wsdmiscr::process.aircraft2()}}

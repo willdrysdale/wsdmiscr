@@ -4,7 +4,8 @@
 \alias{wind_barb}
 \title{Create Wind Barbs}
 \usage{
-wind_barb(x, mlength = 0.1, wblength = 0.025, col = "black", lwd = 1)
+wind_barb(x, mlength = 0.1, wblength = 0.025, col = "black",
+  lwd = 1)
 }
 \arguments{
 \item{x}{windspeed in knots}

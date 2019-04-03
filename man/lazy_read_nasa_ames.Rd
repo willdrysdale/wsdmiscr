@@ -4,12 +4,14 @@
 \alias{lazy_read_nasa_ames}
 \title{Lazy Read NASA Ames}
 \usage{
-lazy_read_nasa_ames(file, start_date, date_column = 1)
+lazy_read_nasa_ames(file, start_date, date_column = 1, tz = "UTC")
 }
 \arguments{
 \item{file}{path of NASA Ames File}
 
 \item{start_date}{date where DOY begins}
+
+\item{tz}{timezone for date_from_decimal_day}
 
 \item{column}{where date is stored, default 1}
 }
