@@ -4,7 +4,7 @@
 \alias{summarise.acf}
 \title{Summarise ACF}
 \usage{
-\method{summarise}{acf}(acf, .f = median, freq = 5, ...)
+summarise.acf(acf, .f = median, freq = 5, ...)
 }
 \arguments{
 \item{acf}{acf output from e4r}
