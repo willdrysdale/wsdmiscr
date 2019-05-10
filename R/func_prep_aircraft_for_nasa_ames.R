@@ -32,13 +32,14 @@ prep_aircraft_final_for_nasa_ames = function(d_final,
     stop("origin must be of length 0 or 1")
   
   d_final[is.na(d_final)] = missing_flag
-  day_of_mission = date(d_final[1,date_col])
+  day_of_mission = lubridate::date(d_final[1,date_col])
   
-  hours = hour(d_final[,date_col])*3600
-  mins = minute(d_final[,date_col])*60
-  secs = second(d_final[,date_col])
+  mid_offset = day_of_mission %>% 
+    paste0(" 00:00") %>% 
+    ymd_hm() %>% 
+    as.integer()
   
-  sec_since_midnight = hours+mins+secs
+  sec_since_midnight = as.numeric(df$date)-mid_offset
   
   d_final[,date_col] = round_any(sec_since_midnight,1,floor)
   
