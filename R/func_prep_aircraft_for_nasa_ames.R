@@ -15,7 +15,7 @@ prep_aircraft_final_for_nasa_ames = function(d_final,
                                              missing_flag = 99999,
                                              col_names = NULL,
                                              date_col = 1,
-                                             date_parse = waclr::parse_excel_date,
+                                             date_parse = lubridate::ymd_hms,
                                              origin = NULL
                                              ){
   if(length(col_names) == 0 )

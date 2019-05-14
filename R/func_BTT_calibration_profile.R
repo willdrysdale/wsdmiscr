@@ -23,7 +23,7 @@ BTT_calibration_profile = function(output_file_path = "C:\\Users\\Will\\Google D
     crit = rbind(crit,t)
   }
   #Create unix Timestamp - nearest 1 min
-  crit$UNIX_TS_min = waclr::parse_excel_date(crit$TheTime)
+  crit$UNIX_TS_min = parse_excel_date(crit$TheTime)
   crit$UNIX_TS_min = round_date(crit$UNIX_TS,"1 mins")
   crit$UNIX_TS_min = as.numeric(crit$UNIX_TS)
   

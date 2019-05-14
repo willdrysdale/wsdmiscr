@@ -10,6 +10,6 @@
 
 read.aircraft = function(fn){
   d = read.csv(fn)
-  d$UNIX_TS = waclr::parse_excel_date(d$TheTime)
+  d$UNIX_TS = parse_excel_date(d$TheTime)
   d
 }
