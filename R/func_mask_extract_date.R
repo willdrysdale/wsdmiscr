@@ -37,13 +37,23 @@ mask_extract_date = function(string,mask,tz = "UTC"){
   if(str_count(mask,"MM") != 1)
     stop("There must be exactly 1 instance of MM in the mask")
   
-  myyear =  substr(string,str_locate(mask,year_string)[1],str_locate(mask,year_string)[2])
-  mymonth = substr(string,str_locate(mask,"mm")[1],str_locate(mask,"mm")[2])
-  myday =   substr(string,str_locate(mask,"dd")[1],str_locate(mask,"dd")[2])
-  myhour =  substr(string,str_locate(mask,"HH")[1],str_locate(mask,"HH")[2])
-  mymin =   substr(string,str_locate(mask,"MM")[1],str_locate(mask,"MM")[2])
+  if(str_count(mask,"SS") > 1)
+    stop("There must be either 0 or 1 instances of SS in the mask")
   
-  date = paste0(myyear,mymonth,myday,"_",myhour,mymin) %>% ymd_hm(tz = tz)
+  myyear  = substr(string,str_locate(mask,year_string)[1],str_locate(mask,year_string)[2])
+  mymonth = substr(string,str_locate(mask,"mm")[1],str_locate(mask,"mm")[2])
+  myday   = substr(string,str_locate(mask,"dd")[1],str_locate(mask,"dd")[2])
+  myhour  = substr(string,str_locate(mask,"HH")[1],str_locate(mask,"HH")[2])
+  mymin   = substr(string,str_locate(mask,"MM")[1],str_locate(mask,"MM")[2])
+  
+  mysec = NULL
+  if(str_count(mask,"SS") == 1)
+    mysec = substr(string,str_locate(mask,"SS")[1],str_locate(mask,"SS")[2])
+  
+  if(is.null(mysec))
+    date = paste0(myyear,mymonth,myday,"_",myhour,mymin) %>% ymd_hm(tz = tz)
+  else
+    date = paste0(myyear,mymonth,myday,"_",myhour,mymin,mysec) %>% ymd_hms(tz = tz)
   
   #return
   date
