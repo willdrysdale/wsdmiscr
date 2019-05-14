@@ -11,7 +11,7 @@
 #' 
 #' @export
 
-summarise.acf = function(acf,.f = median,freq = 5,...){
+summarise_acf = function(acf,.f = median,freq = 5,...){
   acf$date = ymd_hms(acf$date,tz = tz)
   acf$index = acf$date %>% as.factor() %>% as.numeric()
   acf = select(acf,-date) %>% 
