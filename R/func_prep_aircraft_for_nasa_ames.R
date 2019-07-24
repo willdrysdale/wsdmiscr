@@ -39,7 +39,7 @@ prep_aircraft_final_for_nasa_ames = function(d_final,
     ymd_hm() %>% 
     as.integer()
   
-  sec_since_midnight = as.numeric(df$date)-mid_offset
+  sec_since_midnight = as.numeric(d_final[,date_col])-mid_offset
   
   d_final[,date_col] = round_any(sec_since_midnight,1,floor)
   
