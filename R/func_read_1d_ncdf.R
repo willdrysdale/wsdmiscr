@@ -23,24 +23,22 @@ read.1D_ncdf = function(path,var_names,dim_name = "time"){
       "dim_load_error"
     })
   
-  if(dim == "dim_load_error"){
+  if("dim_load_error" %in% dim){
     dim =  nc$var[[1]][["dim"]][[1]]$vals
   }
   
   dim = data.frame(dim)
   names(dim) = dim_name
-  #For each variable
-  var_names2 = c()
-  for (var in var_names){
-    temp_var = ncvar_get(nc,var)
-    if(nrow(temp_var) == nrow(dim)){
-      dim = cbind(dim,temp_var)
-      var_names2 = c(var_names2,var)
-    }
-  }
-  names(dim)[2:ncol(dim)] = var_names2
 
+  var_list = purrr::map(var_names,ncvar_get,nc = nc)
+  var_length = purrr::map_int(var_list,length)
   
+  vars = var_list[var_length == nrow(dim)] %>% 
+    bind_cols()
+  
+  names(vars) = var_names
+  
+  dim = cbind(dim,vars)
   
   #close ncdf
   nc_close(nc)

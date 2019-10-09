@@ -14,6 +14,7 @@
 #' @author Will S. Drysdale
 
 lazy_read_nasa_ames = function(file,start_date,date_column = 1,tz = "UTC"){
+  warning("lazy_read_nasa_ames() is depreciated - please use read_nasa_ames()")
   header_length = readLines(file,1)
   header_length = stringr::str_split(header_length," ")
   header_length = as.numeric((header_length[[1]][1]))-1
