@@ -46,7 +46,7 @@
 #' @param SCOMn string or vector of string containing each special comment line
 #' @param NCOMn string or vector of string containing each normal comment line
 #' @param file save file here
-#' @param col.names include the column headers on the data table T/F
+#' @param col.names include the column headers on the data table T/F. If true they will be added as the final normal comments line
 #' 
 #' @author W. S. Drysdale
 #' @export
@@ -69,7 +69,7 @@ create_nasa_ames_1D = function(d,
                                SCOMn = NULL,
                                NCOMn = NULL,
                                file,
-                               col.names = T
+                               col.names = FALSE
                                ){
   #Check strings don't exceed 132 characters
   if(nchar(ONAME) > 132)
@@ -93,6 +93,10 @@ create_nasa_ames_1D = function(d,
   #Collect number of variable line lengths
   NSCOM = length(SCOMn)
   NNCOM = length(NCOMn)
+  
+  if(col.names)
+    NNCOM = NNCOM+1
+  
   NV = length(NV_col)
   if((ncol(d)-1) != NV)
     stop("Number of VNAMEn entries does not match number of primary variables (NV or NV_col)")
@@ -102,7 +106,7 @@ create_nasa_ames_1D = function(d,
   }
   #If no missing value values are supplied, set them all to 99999
   if(length(VMISSn) == 0){
-    VMISSn = rep(99999,NV)
+    VMISSn = rep(99999999,NV)
   }
   #If VSCALn,VMISSn,VNAMEn,NV_col lengths dont match, stop
   if(!all(sapply(list(length(VSCALn),length(VMISSn),length(VNAMEn)), FUN = identical, NV)))
@@ -139,6 +143,6 @@ create_nasa_ames_1D = function(d,
     for(i in 1:length(NCOMn))
       writeLines(NCOMn[i],con = data_file)
   }
-  write.table(d,data_file,append = T,row.names = F,col.names = col.names,quote = F)
+  suppressWarnings(write.table(d,data_file,append = T,row.names = F,col.names = col.names,quote = F))
 }
 

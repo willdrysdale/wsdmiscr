@@ -6,7 +6,7 @@
 \usage{
 create_nasa_ames_1D(d, ONAME, ORG, SNAME, MNAME, IVOL = 1, NVOL = 1,
   DATE, DX, XNAME, X_col = 1, NV_col, VSCALn = NULL, VMISSn = NULL,
-  VNAMEn, SCOMn = NULL, NCOMn = NULL, file, col.names = T)
+  VNAMEn, SCOMn = NULL, NCOMn = NULL, file, col.names = FALSE)
 }
 \arguments{
 \item{d}{data frame of data to have header attached, column names should be simple, no need to match long names in header}
@@ -45,7 +45,7 @@ create_nasa_ames_1D(d, ONAME, ORG, SNAME, MNAME, IVOL = 1, NVOL = 1,
 
 \item{file}{save file here}
 
-\item{col.names}{include the column headers on the data table T/F}
+\item{col.names}{include the column headers on the data table T/F. If true they will be added as the final normal comments line}
 }
 \description{
 {
