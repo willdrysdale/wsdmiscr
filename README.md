@@ -77,10 +77,6 @@ Reads in an AQD NOx aircraft file and runs aircraft_cal_flags, prodcuing quicklo
 **Plotting**  
 Creates plots of the flight and its sections cloured by supplied parameters  
 
-*read_1D_ncdf*  
-**File Handling**  
-Quickly reads data from a 1D netcdf  
-
 *read.aircraft*  
 **File Handling**  
 Reads in an aircraft CSV and creates the UNIX_TS column used by aircraft_cal_flag  
