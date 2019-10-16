@@ -65,6 +65,10 @@ Returns DOY.decialday from a POSIXct date
 **Data Handling**  
 For a given latitude in degrees, return the length of 1 degree lat(lon)  
 
+*loop_group*  
+**Data Handling**  
+For plotting cyclic data i.e diurnal profiles, create a final group equivalent to the first group, so the plots can start and end in the same place.
+
 *mol_dict_query*  
 **Chemistry**  
 Query a small database of molecules relevant to atmospheric chemistry for simple parameters such as mol weight, mdq() is a wrapper for this  
