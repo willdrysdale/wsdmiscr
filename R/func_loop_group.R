@@ -13,12 +13,6 @@
 
 loop_group = function(df,by = NULL, grp = NULL){
   
-  if(!class(by) %in% c("numeric","integer"))
-    stop("by must be either numeric or integer")
-  
-  if(!class(data.frame(df)[,grp]) %in% c("numeric","integer"))
-    stop("column that grp specifies must be numeric or integer")
-  
   # if no grp is supplied, try to obtain from the data.frame's grouping info
   if(is.null(grp)){
     grp = dplyr::groups(df)[[1]] %>% 
@@ -26,6 +20,9 @@ loop_group = function(df,by = NULL, grp = NULL){
     
     if(is.null(grp))
       stop("Unable to determine group. Please supply a grouped data.frame or specify the grouping column")
+  }else{
+    if(!class(data.frame(df)[,grp]) %in% c("numeric","integer"))
+      stop("column that grp specifies must be numeric or integer")
   }
   
   # If no by supplied, try to guess from the grp column
@@ -38,6 +35,9 @@ loop_group = function(df,by = NULL, grp = NULL){
     
     by = max(grp_seq)/length(grp_seq)
     
+  }else{
+    if(!class(by) %in% c("numeric","integer"))
+      stop("by must be either numeric or integer")
   }
   
   wrap_df = df[df[,grp] == min(df[,grp],na.rm = T),]
