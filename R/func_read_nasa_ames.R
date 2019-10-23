@@ -20,9 +20,12 @@ read_nasa_ames = function(file,
   if(is.null(header_length)){
     # Get header length from file
     header_length = readLines(file,n = 1) %>% 
-      stringr::str_split(" ") %>% 
-      purrr::map_chr(1) %>% 
-      as.numeric()
+      stringr::str_replace_all("\t"," ") %>% 
+      stringr::str_split(" ") %>%
+      unlist() %>% 
+      as.numeric() %>% 
+      na.omit() %>% 
+      `[`(1)
   }
 
   
