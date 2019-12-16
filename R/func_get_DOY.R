@@ -2,7 +2,7 @@
 #' 
 #' from a POSIXct Date, return DOY.decimal_day
 #' 
-#' @param d a POSIXct Date
+#' @param d a POSIXct Date or data.frame containing a column named date
 #' 
 #' @return DOY.decimal_day
 #' 
@@ -12,11 +12,16 @@
 
 get_DOY = function(d){
   
-  DOY = as.numeric(lubridate::yday(d$date))
+  if("date.frame" %in% class(d))
+    x = d$date
+  else
+    x = d
   
-  h = as.numeric(lubridate::hour(d$date)*3600)
-  m = as.numeric(lubridate::minute(d$date)*60)
-  s = as.numeric(lubridate::second(d$date))
+  DOY = as.numeric(lubridate::yday(x))
+  
+  h = as.numeric(lubridate::hour(x)*3600)
+  m = as.numeric(lubridate::minute(x)*60)
+  s = as.numeric(lubridate::second(x))
   
   all_seconds = h+m+s
   

@@ -7,7 +7,7 @@
 get_DOY(d)
 }
 \arguments{
-\item{d}{a POSIXct Date}
+\item{d}{a POSIXct Date or data.frame containing a column named date}
 }
 \value{
 DOY.decimal_day
