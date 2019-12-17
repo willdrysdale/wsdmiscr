@@ -1,6 +1,6 @@
 Package: wsdmiscr
-Version: 0.7.6
-Date: 2019-10-16
+Version: 0.7.7
+Date: 2019-12-17
 Title: wsdmiscr
 Decription: Various functions supporting data handling in an atmospheric chemistry PhD
 Author: Will S Drysdale
@@ -22,4 +22,6 @@ Depends:
     viridisLite,
     lubridate,
     ncdf4
+Requires:
+    patchwork
 RoxygenNote: 6.1.1

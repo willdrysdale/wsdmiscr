@@ -3,7 +3,7 @@
 #' Reads a NASA Ames file by removing the header and parsing the rest of the data using read.table()
 #' 
 #' @param file path to the file
-#' @param SComm_header Logical default false. If the final line of special comments contains the data header, set to true
+#' @param NComm_header Logical default false. If the final line of normal comments contains the data header, set to true
 #' @param header_length by default the header length is obtained from the first line of the file. Supply a value here to override this.
 #' 
 #' @author W. S. Drysdale
@@ -30,7 +30,7 @@ read_nasa_ames = function(file,
 
   
   # If the final line of the special comments contains the column headers, use these
-  if(SComm_header)
+  if(NComm_header)
     dat = read.table(file,skip = (header_length-1),header = T,...)
   else
     dat = read.table(file,skip = header_length,...)
