@@ -8,7 +8,7 @@
 #' 
 #' @export
 
-leg_theme = function(fill_col = "grey97",line_col = "black",pos = "right"){
+leg_theme = function(fill_col = "white",line_col = "black",pos = "right"){
   theme(
     legend.position = pos,
     legend.text = element_text(colour = line_col,size = 12),

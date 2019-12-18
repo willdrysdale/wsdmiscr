@@ -8,9 +8,9 @@
 #' @export
 
 
-gen_theme = function(fill_col = "grey97",line_col = "black"){
+gen_theme = function(fill_col = "white",line_col = "black"){
   ggplot2::theme(
-    plot.background = element_rect(fill = fill_col, colour = "grey92"),
+    plot.background = element_rect(fill = fill_col, colour = fill_col),
     panel.background = element_rect(fill = fill_col, colour = fill_col),
     panel.grid.major = element_blank(),
     panel.grid.minor.y = element_blank(),

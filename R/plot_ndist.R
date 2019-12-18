@@ -9,7 +9,7 @@
 #' 
 #' @author W. S. Drysdale
 
-plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz)){
+plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values"){
   
   columns = substitute(columns)
   
@@ -38,8 +38,8 @@ plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz)){
     hist_plots[[i]] = 
       ggplot(plotDat)+
       geom_histogram(aes(x = value, y = ..density..),binwidth = 20,fill = cols[i],col = "black")+
-      stat_function(fun = dnorm,args = list(mean = mean(plotDat$value),sd = sd(plotDat$value)),size = 1.2)+
-      xlab(ifelse(i == length(dfList),"Value",""))+
+      stat_function(fun = dnorm,args = list(mean = mean(plotDat$value,na.rm = T),sd = sd(plotDat$value,na.rm = T)),size = 1.2)+
+      xlab(ifelse(i == length(dfList),value_name,""))+
       ylab("")+
       wsdmiscr::gen_theme("white")+
       theme(plot.background = element_rect(colour = "white"))
@@ -54,7 +54,7 @@ plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz)){
       geom_hline(aes(yintercept = mean(value,na.rm = T)+sd(value,na.rm = T)),size = 1.2,linetype = 2)+
       geom_hline(aes(yintercept = mean(value,na.rm = T)-sd(value,na.rm = T)),size = 1.2,linetype = 2)+
       xlab(ifelse(i == length(dfList),"Date",""))+
-      ylab("Value")+
+      ylab(value_name)+
       wsdmiscr::gen_theme("white")+
       theme(plot.background = element_rect(colour = "white"))
     
