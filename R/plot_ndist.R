@@ -4,12 +4,13 @@
 #' 
 #' @param df data.frame containing a date column as POSIXct and the columns to plot
 #' @param columns column names expressed unquoted.
+#' @param value_name x axis label on histograms and y axis label on time series
 #' 
 #' @export
 #' 
 #' @author W. S. Drysdale
 
-plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values"){
+plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values",print_stats = FALSE){
   
   columns = substitute(columns)
   
@@ -64,6 +65,15 @@ plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values"){
   
   ts_plots = do.call("/",ts_plots)
   
+  if(print_stats){
+    df %>% 
+      dplyr::select(-date) %>% 
+      na.omit() %>% 
+      group_by(variable) %>% 
+      summarise_all(c(mean = mean, sd = sd),na.rm = T) %>% 
+      print()
+  }
+    
   
   #return
   ts_plots|hist_plots|plot_layout(ncol = 2,widths = c(3,1))

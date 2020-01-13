@@ -139,7 +139,7 @@ create_nasa_ames_1D = function(d,
       writeLines(SCOMn[i],con = data_file)
   }
   writeLines(paste0(NNCOM),con = data_file)
-  if(NNCOM != 0){
+  if(!is.null(NCOMn)){ # test is.null rather than NNCOM == 0, col.names == T; NNCOM is 1, even if NCOMn is null
     for(i in 1:length(NCOMn))
       writeLines(NCOMn[i],con = data_file)
   }

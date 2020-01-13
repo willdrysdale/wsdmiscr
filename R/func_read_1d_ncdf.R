@@ -11,14 +11,20 @@
 
 read.1D_ncdf = function(path,var_names,dim_name = "time"){
   #Open Connnection to ncdf file
-  nc = nc_open(path)
+  nc = ncdf4::nc_open(path)
   #if custom variable names are undefined, read all variables
   if(missing(var_names))
     var_names = names(nc$var)
   #Load Dimention
   
+  quiet <- function(x) { 
+    sink(tempfile()) 
+    on.exit(sink()) 
+    invisible(force(x)) 
+  } 
+  
   dim = tryCatch({
-    ncvar_get(nc,dim_name)},
+    quiet(ncdf4::ncvar_get(nc,dim_name,verbose = F))},
     error = function(e){
       "dim_load_error"
     })
@@ -30,18 +36,18 @@ read.1D_ncdf = function(path,var_names,dim_name = "time"){
   dim = data.frame(dim)
   names(dim) = dim_name
 
-  var_list = purrr::map(var_names,ncvar_get,nc = nc)
+  var_list = purrr::map(var_names,ncdf4::ncvar_get,nc = nc)
   var_length = purrr::map_int(var_list,length)
   
   vars = var_list[var_length == nrow(dim)] %>% 
-    bind_cols()
+    dplyr::bind_cols()
   
   names(vars) = var_names
   
   dim = cbind(dim,vars)
   
   #close ncdf
-  nc_close(nc)
+  ncdf4::nc_close(nc)
   #return
   dim
 }
