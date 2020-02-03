@@ -11,7 +11,7 @@
 #' @export
 
 read_nasa_ames = function(file,
-                          SComm_header = FALSE,
+                          NComm_header = FALSE,
                           header_length = NULL,
                           ...){
   require(stringr)
