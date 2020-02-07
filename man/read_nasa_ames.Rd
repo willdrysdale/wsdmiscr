@@ -4,14 +4,14 @@
 \alias{read_nasa_ames}
 \title{Read NASA Ames}
 \usage{
-read_nasa_ames(file, SComm_header = FALSE, header_length = NULL, ...)
+read_nasa_ames(file, NComm_header = FALSE, header_length = NULL, ...)
 }
 \arguments{
 \item{file}{path to the file}
 
-\item{header_length}{by default the header length is obtained from the first line of the file. Supply a value here to override this.}
-
 \item{NComm_header}{Logical default false. If the final line of normal comments contains the data header, set to true}
+
+\item{header_length}{by default the header length is obtained from the first line of the file. Supply a value here to override this.}
 }
 \description{
 Reads a NASA Ames file by removing the header and parsing the rest of the data using read.table()

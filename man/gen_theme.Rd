@@ -4,7 +4,7 @@
 \alias{gen_theme}
 \title{General Theme}
 \usage{
-gen_theme(fill_col = "grey97", line_col = "black")
+gen_theme(fill_col = "white", line_col = "black")
 }
 \arguments{
 \item{fill_col}{controls plot background colour,default grey97}

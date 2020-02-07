@@ -48,21 +48,22 @@ ggwindRose = function(d,ws = "ws",wd = "wd",breaks = 16,nbin = 5,col = NULL,grou
   if(is.null(col))
     col = viridis(nbin) %>% rev
   plt = ggplot(d)+
-    geom_histogram(aes_string(wd,fill = "ws_bin"),binwidth = 360/breaks)+
+    geom_histogram(aes_string(wd,fill = "ws_bin"),binwidth = 360/breaks,colour = "black")+
     scale_fill_manual(values = col,name = "Wind Speed",
                       labels = rev(paste(round(wbin$start,2),round(wbin$end,2),sep = " - ")))+
     scale_x_continuous(breaks = c(90,180,270,360),
                        limits = c(0+(360/(2*breaks)),360+(360/(2*breaks))),
                        labels = c("    E","\nS","W    ","N\n"),name = "")+
     coord_polar(start = deg2rad(360/(2*breaks)))+
-    scale_y_continuous(name = "Counts")+
+    ylab("")+
     theme(plot.background = element_rect(fill = "White"),
           panel.background = element_rect(fill = "White"),
           panel.grid.major = element_line(colour = "black"),
           panel.grid.minor = element_line(colour = "black"),
           axis.ticks.y = element_blank(),
+          axis.text.y = element_blank(),
           axis.text.x = element_text(colour = "black",size = rel(2)),
-          plot.margin = ggplot2::unit(c(0.1,0,0,0),"cm")
+          plot.margin = ggplot2::unit(c(0.2,0,0,0),"cm")
     )
   
   if(!is.null(group))

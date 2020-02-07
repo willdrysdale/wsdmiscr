@@ -4,7 +4,7 @@
 \alias{leg_theme}
 \title{Legend Theme}
 \usage{
-leg_theme(fill_col = "grey97", line_col = "black", pos = "right")
+leg_theme(fill_col = "white", line_col = "black", pos = "right")
 }
 \arguments{
 \item{fill_col}{controls plot background colour,default grey97}

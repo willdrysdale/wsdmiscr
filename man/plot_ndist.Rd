@@ -4,12 +4,15 @@
 \alias{plot_ndist}
 \title{Plot Normal distribution}
 \usage{
-plot_ndist(df, columns = c(CH1_Hz, CH2_Hz))
+plot_ndist(df, columns = c(CH1_Hz, CH2_Hz), value_name = "Values",
+  print_stats = FALSE)
 }
 \arguments{
 \item{df}{data.frame containing a date column as POSIXct and the columns to plot}
 
 \item{columns}{column names expressed unquoted.}
+
+\item{value_name}{x axis label on histograms and y axis label on time series}
 }
 \description{
 Fit and plot a normal distribution histogram alongside a timeseries of the data the distribution has been fitted from
