@@ -23,5 +23,7 @@ Depends:
     lubridate,
     ncdf4
 Requires:
-    patchwork
+    patchwork,
+    ggforce,
+    shadowtext
 RoxygenNote: 6.1.1
