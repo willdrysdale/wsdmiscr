@@ -5,12 +5,22 @@
 #' @param df data.frame containing a date column as POSIXct and the columns to plot
 #' @param columns column names expressed unquoted.
 #' @param value_name x axis label on histograms and y axis label on time series
+#' @param binwidth set binwidth argument for geom_histogram
+#' @param pad_res default NULL. When not NULL, pad the data using a time series at the this resolution in seconds
+#' @param floor_unit default NULL. When not NULL use \code{lubridate::floor_date()} to round the time stamp to this unit
+#' @param print_stats when TRUE, print the mean and sd to the console
 #' 
 #' @export
 #' 
 #' @author W. S. Drysdale
 
-plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values",print_stats = FALSE){
+plot_ndist = function(df,
+                      columns = c(CH1_Hz,CH2_Hz),
+                      value_name = "Values",
+                      binwidth = NULL,
+                      pad_res = NULL,
+                      floor_unit = NULL,
+                      print_stats = FALSE){
   
   columns = substitute(columns)
   
@@ -38,15 +48,17 @@ plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values",print_
     
     hist_plots[[i]] = 
       ggplot(plotDat)+
-      geom_histogram(aes(x = value, y = ..density..),binwidth = 20,fill = cols[i],col = "black")+
+      geom_histogram(aes(x = value, y = ..density..),binwidth = binwidth,fill = cols[i],col = "black")+
       stat_function(fun = dnorm,args = list(mean = mean(plotDat$value,na.rm = T),sd = sd(plotDat$value,na.rm = T)),size = 1.2)+
       xlab(ifelse(i == length(dfList),value_name,""))+
       ylab("")+
       wsdmiscr::gen_theme("white")+
       theme(plot.background = element_rect(colour = "white"))
     
-    ts = data.frame(date = seq(min(plotDat$date),max(plotDat$date),1))
-    plotDat = dplyr::left_join(ts,plotDat,by = "date")
+    if(!is.null(pad_res)){
+      ts = data.frame(date = seq(min(plotDat$date),max(plotDat$date),1))
+      plotDat = dplyr::left_join(ts,plotDat,by = "date")
+    }
     
     ts_plots[[i]] = 
       ggplot(plotDat)+
@@ -61,9 +73,16 @@ plot_ndist = function(df,columns = c(CH1_Hz,CH2_Hz),value_name = "Values",print_
     
   }
   
-  hist_plots = do.call("/",hist_plots)
-  
-  ts_plots = do.call("/",ts_plots)
+  if(length(dfList) > 1){
+    hist_plots = do.call("/",hist_plots)
+    
+    ts_plots = do.call("/",ts_plots)
+  }else{
+    hist_plots = hist_plots[[1]]
+    
+    ts_plots = ts_plots[[1]]
+  }
+
   
   if(print_stats){
     df %>% 
