@@ -4,13 +4,15 @@
 #' 
 #' @param polarPlotData data from \code{openair::polarPlot} output
 #' @param legendName name for legend
+#' @param nudge_nsew nudges the position of the N,S,E,W labels by multipling the radius of the plot. Default 1.1
+#' @param label Add a label in the upper right corner - useful when constructing multipanel figures. Default NULL
 #' 
 #' @author W. S. Drysdale
 #' 
 #' @export
 
 
-ggplot_polarPlot = function(polarPlotData, legendName = "z"){
+ggplot_polarPlot = function(polarPlotData, legendName = "z", nudge_nsew = 1.1, label = NULL){
   
   require(ggforce)
   require(shadowtext)
@@ -29,11 +31,13 @@ ggplot_polarPlot = function(polarPlotData, legendName = "z"){
                        y = u_breaks*cos(deg2rad(45)),
                        labels = u_breaks)
   
-  nsew_dat = data.frame(u = c(0,0,se[2]*1.1,se[2]*-1.1),
-                        v = c(se[2]*1.1,se[2]*-1.1,0,0),
+  se = range(polarPlotData$u,na.rm = T)
+  
+  nsew_dat = data.frame(u = c(0,0,se[2]*nudge_nsew,se[2]*-nudge_nsew),
+                        v = c(se[2]*nudge_nsew,se[2]*-nudge_nsew,0,0),
                         label = c("N","S","E","W"))
   
-  ggplot(polarPlotData)+
+  g = ggplot(polarPlotData)+
     geom_raster(aes(u,v,fill = z))+
     ggforce::geom_circle(data = circle_dat,
                          aes(x0 = x0,
@@ -62,6 +66,15 @@ ggplot_polarPlot = function(polarPlotData, legendName = "z"){
           axis.ticks = element_blank(),
           legend.text = element_text(size = 15),
           legend.title = element_text(size = 15,face = "bold"))
+  
+  if(!is.null(label))
+    
+    g = g+shadowtext::geom_shadowtext(data = data.frame(x = se[2], y = se[2], label = label),
+                                      aes(x = x,y = y, label = label),size = 12)
+  
+  # Return
+  g
+  
 }
 
 

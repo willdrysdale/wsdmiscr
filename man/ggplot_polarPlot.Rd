@@ -4,12 +4,17 @@
 \alias{ggplot_polarPlot}
 \title{ggplot polarPlot}
 \usage{
-ggplot_polarPlot(polarPlotData, legendName = "z")
+ggplot_polarPlot(polarPlotData, legendName = "z", nudge_nsew = 1.1,
+  label = NULL)
 }
 \arguments{
 \item{polarPlotData}{data from \code{openair::polarPlot} output}
 
 \item{legendName}{name for legend}
+
+\item{nudge_nsew}{nudges the position of the N,S,E,W labels by multipling the radius of the plot. Default 1.1}
+
+\item{label}{Add a label in the upper right corner - useful when constructing multipanel figures. Default NULL}
 }
 \description{
 Take the data output of \code{openair::polarPlot} and plot using ggplot
