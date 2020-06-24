@@ -12,7 +12,7 @@
 #' @export
 
 
-ggplot_polarPlot = function(polarPlotData, legendName = "z", nudge_nsew = 1.1, label = NULL){
+ggplot_polarPlot = function(polarPlotData, legendName = "z", nudge_nsew = 1.1, label = NULL,show_nsew = T){
   
   require(ggforce)
   require(shadowtext)
@@ -33,9 +33,15 @@ ggplot_polarPlot = function(polarPlotData, legendName = "z", nudge_nsew = 1.1, l
   
   se = range(polarPlotData$u,na.rm = T)
   
+  if(show_nsew){
+    nsew_lab = c("N","S","E","W")
+  }else{
+    nsew_lab = rep("",4)
+  }
+  
   nsew_dat = data.frame(u = c(0,0,se[2]*nudge_nsew,se[2]*-nudge_nsew),
                         v = c(se[2]*nudge_nsew,se[2]*-nudge_nsew,0,0),
-                        label = c("N","S","E","W"))
+                        label = nsew_lab)
   
   g = ggplot(polarPlotData)+
     geom_raster(aes(u,v,fill = z))+
