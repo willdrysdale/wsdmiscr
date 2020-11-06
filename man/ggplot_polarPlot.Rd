@@ -4,8 +4,13 @@
 \alias{ggplot_polarPlot}
 \title{ggplot polarPlot}
 \usage{
-ggplot_polarPlot(polarPlotData, legendName = "z", nudge_nsew = 1.1,
-  label = NULL)
+ggplot_polarPlot(
+  polarPlotData,
+  legendName = "z",
+  nudge_nsew = 1.1,
+  label = NULL,
+  show_nsew = T
+)
 }
 \arguments{
 \item{polarPlotData}{data from \code{openair::polarPlot} output}

@@ -4,8 +4,14 @@
 \alias{interpolate_by_index_wrk}
 \title{interpolate_by_index}
 \usage{
-interpolate_by_index_wrk(d, index_start, index_end, interp_col,
-  index = "date", f = zoo::na.approx)
+interpolate_by_index_wrk(
+  d,
+  index_start,
+  index_end,
+  interp_col,
+  index = "date",
+  f = zoo::na.approx
+)
 }
 \arguments{
 \item{d}{dataframe to interpolate over}

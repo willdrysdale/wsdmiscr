@@ -4,10 +4,18 @@
 \alias{process_zeros}
 \title{process_zeros}
 \usage{
-process_zeros(df, zero_flag = c("zero_valve_1", "zero_valve_2"),
-  calc_col = c("CH1_Hz", "CH2_Hz"), out_col = c("CH1_Hz_zero",
-  "CH2_Hz_zero"), state_length = 15, trim_beg = 5, trim_end = 5,
-  f = median, interp = T, ...)
+process_zeros(
+  df,
+  zero_flag = c("zero_valve_1", "zero_valve_2"),
+  calc_col = c("CH1_Hz", "CH2_Hz"),
+  out_col = c("CH1_Hz_zero", "CH2_Hz_zero"),
+  state_length = 15,
+  trim_beg = 5,
+  trim_end = 5,
+  f = median,
+  interp = T,
+  ...
+)
 }
 \arguments{
 \item{df}{dataframe containing both the flag and calc data}

@@ -4,8 +4,7 @@
 \alias{mol_dict_query}
 \title{Molecule Dictionary Query}
 \usage{
-mol_dict_query(mol = NA, property = NA,
-  dictionary = molecule_dictionary())
+mol_dict_query(mol = NA, property = NA, dictionary = molecule_dictionary())
 }
 \arguments{
 \item{mol}{molecular formula of molecule to be queried}

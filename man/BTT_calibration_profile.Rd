@@ -4,9 +4,12 @@
 \alias{BTT_calibration_profile}
 \title{BTT Calibraion Profile}
 \usage{
-
-  BTT_calibration_profile(output_file_path = "C:\\\\Users\\\\Will\\\\Google Drive\\\\PhD\\\\site_BT Tower\\\\AQD_Calibration_Profile",
-  crit_file_folder = "1_min_crit_files", percentage_drift = 50)
+BTT_calibration_profile(
+ 
+    output_file_path = "C:\\\\Users\\\\Will\\\\Google Drive\\\\PhD\\\\site_BT Tower\\\\AQD_Calibration_Profile",
+  crit_file_folder = "1_min_crit_files",
+  percentage_drift = 50
+)
 }
 \arguments{
 \item{output_file_path}{Location containing the folder where all of the crit files are stored}

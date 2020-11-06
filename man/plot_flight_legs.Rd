@@ -4,11 +4,20 @@
 \alias{plot_flight_legs}
 \title{Plot flight legs}
 \usage{
-plot_flight_legs(flight_data, flight_sum_path, plot_range = T,
-  maptype = "toner", output_file_path = "plots/",
-  colour_by = c("nox_conc", "o3_teco", "alt_gin"), flight_map,
-  missing_flag = -9999, zoom = 8, logplot = c(T, F, F),
-  range_control = T, cols = viridisLite::plasma(10))
+plot_flight_legs(
+  flight_data,
+  flight_sum_path,
+  plot_range = T,
+  maptype = "toner",
+  output_file_path = "plots/",
+  colour_by = c("nox_conc", "o3_teco", "alt_gin"),
+  flight_map,
+  missing_flag = -9999,
+  zoom = 8,
+  logplot = c(T, F, F),
+  range_control = T,
+  cols = viridisLite::plasma(10)
+)
 }
 \arguments{
 \item{flight_data}{faam merge file}

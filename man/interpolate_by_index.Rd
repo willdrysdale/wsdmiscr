@@ -4,8 +4,15 @@
 \alias{interpolate_by_index}
 \title{interpolate_by_index}
 \usage{
-interpolate_by_index(df, index_start, index_end, interp_col,
-  index = "date", f = zoo::na.approx, extend = F)
+interpolate_by_index(
+  df,
+  index_start,
+  index_end,
+  interp_col,
+  index = "date",
+  f = zoo::na.approx,
+  extend = F
+)
 }
 \arguments{
 \item{index_start}{value of index at begining of index. index must be unique. length must equal \code{length(interp_col)}}

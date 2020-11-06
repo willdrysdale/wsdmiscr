@@ -4,8 +4,14 @@
 \alias{average_by_time}
 \title{Average By Time}
 \usage{
-average_by_time(df, time_stamp = c("floor", "round", "ceiling")[1],
-  res = "1 min", .f = mean, time_col = "date", ...)
+average_by_time(
+  df,
+  time_stamp = c("floor", "round", "ceiling")[1],
+  res = "1 min",
+  .f = mean,
+  time_col = "date",
+  ...
+)
 }
 \arguments{
 \item{df}{data.frame}

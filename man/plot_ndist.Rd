@@ -4,9 +4,15 @@
 \alias{plot_ndist}
 \title{Plot Normal distribution}
 \usage{
-plot_ndist(df, columns = c(CH1_Hz, CH2_Hz), value_name = "Values",
-  binwidth = NULL, pad_res = NULL, floor_unit = NULL,
-  print_stats = FALSE)
+plot_ndist(
+  df,
+  columns = c(CH1_Hz, CH2_Hz),
+  value_name = "Values",
+  binwidth = NULL,
+  pad_res = NULL,
+  floor_unit = NULL,
+  print_stats = FALSE
+)
 }
 \arguments{
 \item{df}{data.frame containing a date column as POSIXct and the columns to plot}

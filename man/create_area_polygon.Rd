@@ -4,8 +4,12 @@
 \alias{create_area_polygon}
 \title{Create Area Polygon}
 \usage{
-create_area_polygon(top_line, bot_line, reverse = F,
-  crs_args = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+create_area_polygon(
+  top_line,
+  bot_line,
+  reverse = F,
+  crs_args = "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"
+)
 }
 \arguments{
 \item{top_line}{SpatialLines object describing the top edge of the polygon}

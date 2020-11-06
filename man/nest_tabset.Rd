@@ -4,8 +4,13 @@
 \alias{nest_tabset}
 \title{Nest Tabset}
 \usage{
-nest_tabset(listTree, idTree, depth, parse_function,
-  tabset_type = "tabset tabset-pills")
+nest_tabset(
+  listTree,
+  idTree,
+  depth,
+  parse_function,
+  tabset_type = "tabset tabset-pills"
+)
 }
 \arguments{
 \item{listTree}{A list or list of lists which defines the structure of the tabset. \cr 

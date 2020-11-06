@@ -4,9 +4,27 @@
 \alias{create_nasa_ames_1D}
 \title{Create NASA Ames 1D}
 \usage{
-create_nasa_ames_1D(d, ONAME, ORG, SNAME, MNAME, IVOL = 1, NVOL = 1,
-  DATE, DX, XNAME, X_col = 1, NV_col, VSCALn = NULL, VMISSn = NULL,
-  VNAMEn, SCOMn = NULL, NCOMn = NULL, file, col.names = FALSE)
+create_nasa_ames_1D(
+  d,
+  ONAME,
+  ORG,
+  SNAME,
+  MNAME,
+  IVOL = 1,
+  NVOL = 1,
+  DATE,
+  DX,
+  XNAME,
+  X_col = 1,
+  NV_col,
+  VSCALn = NULL,
+  VMISSn = NULL,
+  VNAMEn,
+  SCOMn = NULL,
+  NCOMn = NULL,
+  file,
+  col.names = FALSE
+)
 }
 \arguments{
 \item{d}{data frame of data to have header attached, column names should be simple, no need to match long names in header}
