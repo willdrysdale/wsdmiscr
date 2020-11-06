@@ -2,7 +2,7 @@
 #' 
 #' Download the NAEI UK emissions map
 #' 
-#' @param species name of species of interest as written the in dropdown box at \url{naei.beis.gov.uk/data/map-uk-das}
+#' @param species name of species of interest as written the in dropdown box at \url{https://naei.beis.gov.uk/data/map-uk-das}
 #' @param write_dir file path to save data to. Map is downloaded to \code{tempdir()} if NULL.
 #' 
 #' @author W. S. Drysdale

@@ -4,10 +4,15 @@
 \alias{get_NAEI_map}
 \title{Get NAEI map}
 \usage{
-get_NAEI_map(species = "Nitrogen oxides (NOx expressed as NO2)")
+get_NAEI_map(
+  species = "Nitrogen oxides (NOx expressed as NO2)",
+  write_dir = NULL
+)
 }
 \arguments{
-\item{species}{name of species of interest as written the in dropdown box at \url{naei.beis.gov.uk/data/map-uk-das}}
+\item{species}{name of species of interest as written the in dropdown box at \url{https://naei.beis.gov.uk/data/map-uk-das}}
+
+\item{write_dir}{file path to save data to. Map is downloaded to \code{tempdir()} if NULL.}
 }
 \description{
 Download the NAEI UK emissions map
