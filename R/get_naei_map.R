@@ -41,7 +41,6 @@ get_NAEI_map = function(species = "Nitrogen oxides (NOx expressed as NO2)",
   links = tibble(name = html_text(a_nodes),
                  url = html_attr(a_nodes,"href"))
   
-  
   download = filter(links,
                     str_detect(name,"Area"))$url # could make into option type, if you want the effort of differnt readers
   
