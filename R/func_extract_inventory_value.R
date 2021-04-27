@@ -32,7 +32,7 @@ footprint_inventory_extract = function(fp,inv,loc,full_output = F,rescale = F){
   
   fp_spdf = sp::spTransform(fp_spdf,crs(inv))
   
-  fp_spdf$inv_vals = extract(inv,fp_spdf)
+  fp_spdf$inv_vals = raster::extract(inv,fp_spdf)
   fp_spdf$inv_weight = fp_spdf$value*fp_spdf$inv_vals
   
   #Return
