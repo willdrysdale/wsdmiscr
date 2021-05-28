@@ -15,14 +15,27 @@ load_naei_layers = function(dir = "C:/Users/Will/Google Drive/PhD/site_BT Tower/
   
   files = list.files(dir)
   files = files[str_detect(files,".asc")]
-  file_total = files[str_detect(files,"total")]
-  file_reac = files[str_detect(files,"rea")]
-  files = files[!str_detect(files,"tota")]
   
-  tot = rgdal::readGDAL(paste0(dir,file_total)) %>% raster()
-  rea = rgdal::readGDAL(paste0(dir,file_reac)) %>% raster()
+  if(length(files) == 0){
+    files = list.files(dir)
+    files = files[str_detect(files,".txt")]
+  }
   
-  point = tot-rea
+  file_total = ifelse(str_detect(paste0(files,collapse = ""),"total"),files[str_detect(files,"total")],NULL)
+  file_reac = ifelse(str_detect(paste0(files,collapse = ""),"rea"),files[str_detect(files,"rea")],NULL)
+  
+  if(!is.null(file_total)){
+    files = files[!str_detect(files,"tota")]
+    tot = rgdal::readGDAL(paste0(dir,file_total)) %>% raster()
+  }
+  
+  if(!is.null(file_reac)){
+    rea = rgdal::readGDAL(paste0(dir,file_reac)) %>% raster()
+  }
+  
+  if(all(!is.null(file_total),!is.null(file_reac))){
+    point = tot-rea
+  }
   
   for(i in 1:length(files)){
     if(i == 1){
@@ -32,8 +45,14 @@ load_naei_layers = function(dir = "C:/Users/Will/Google Drive/PhD/site_BT Tower/
       naei = raster::stack(naei,temp)
     }
   }
-  naei = raster::stack(naei,point)
-  names(naei) = str_remove(c(files,str_replace(file_total,"total","point")),".asc")
+  
+  if(!is.null(file_reac)){
+    naei = raster::stack(naei,point)
+    names(naei) = str_remove(c(files,str_replace(file_total,"total","point")),".asc")
+  }else{
+    names(naei) = str_remove(files[-which(str_detect(files,"total"))],".asc")
+  }
+
   
   #return
   naei
