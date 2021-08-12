@@ -18,13 +18,13 @@ footprint_inventory_extract = function(fp,inv,loc,full_output = F,rescale = F){
   
   fp = fp %>% 
     rotate() %>%
-    data.frame() %>% 
-    mutate(X1 = row_number()) %>% # this mess is because melt broke 
-    pivot_longer(-X1,
+    data.frame() %>%   
+    mutate(rows = row_number()) %>% # this mess is because melt broke 
+    pivot_longer(-rows,
                  names_to = "X2",
                  names_prefix = "X",
-                 names_transform = list(X2 = as.integer))
-  
+                 names_transform = list(X2 = as.integer)) %>% 
+    dplyr::select(X1 = rows,X2,value)
   
   grid_size = mean(c(max(fp$X1),max(fp$X2)))
   fp$X1 = fp$X1-(max(fp$X1)/2)
