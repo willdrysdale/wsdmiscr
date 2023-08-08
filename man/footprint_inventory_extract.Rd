@@ -4,7 +4,14 @@
 \alias{footprint_inventory_extract}
 \title{Footprint Inventory Extract}
 \usage{
-footprint_inventory_extract(fp, inv, loc, full_output = F, rescale = F)
+footprint_inventory_extract(
+  fp,
+  inv,
+  loc,
+  full_output = F,
+  rescale = F,
+  grid_size
+)
 }
 \arguments{
 \item{fp}{footprint matrix}
@@ -14,6 +21,8 @@ footprint_inventory_extract(fp, inv, loc, full_output = F, rescale = F)
 \item{loc}{c(lat,long) coordinates for the center of the footprint matrix}
 
 \item{rescale}{default false, rescale total footprint sum to 1}
+
+\item{grid_size}{size of footprint cell size in m}
 }
 \value{
 The sum of the inventory weighted by the footprint
